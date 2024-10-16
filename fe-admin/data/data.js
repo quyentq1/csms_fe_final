@@ -1,5 +1,12 @@
 export const menu = [
     {
+        title:'Thống Kê',
+        href: '/statistical/manage',
+        list: [
+
+        ],
+    },
+    {
         title: 'Quản lý danh mục',
         href: '/catalog/manage',
         list: [
@@ -19,5 +26,6 @@ export const menu = [
         list: [
 
         ],
-    },
+    }
+
 ]
