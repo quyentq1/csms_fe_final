@@ -5,12 +5,11 @@ import { useRouter } from 'next/router';
 import ProductItem from '@/components/collectionPage/productItem';
 import queries from '@/queries';
 
-
-const CollectionPage = () => {
+const SearchPage = () => {
     const router = useRouter();
-    const { category } = router.query;
+    const { s } = router.query;
 
-    const { isError, error, data } = useQuery(queries.products.list(category));
+    const { isError, error, data } = useQuery(queries.products.search(s));
     if (isError) console.log(error);
     const productList = data?.data;
 
@@ -48,4 +47,4 @@ const CollectionPage = () => {
     );
 };
 
-export default CollectionPage;
+export default SearchPage;

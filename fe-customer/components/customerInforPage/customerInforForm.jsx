@@ -5,7 +5,7 @@ import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 
-const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', address = '', handleUpdateCustomerInfor }) => {
+const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', address = '', point='', handleUpdateCustomerInfor }) => {
     const schema = object({
         customerName: string()
             .trim()
@@ -25,7 +25,8 @@ const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', ad
             email,
             customerName,
             phoneNumber,
-            address
+            address,
+            point
         },
         resolver: yupResolver(schema),
     });
@@ -55,6 +56,12 @@ const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', ad
                 <div className="col-3">Địa chỉ</div>
                 <div className="col-7">
                     <div className="mb-3"><InputField name='address' control={control} placeholder={'Địa chỉ (Ví dụ: 112/12 3/2 Hưng Lợi, Ninh Kiều)'} /></div>
+                </div>
+            </div>
+            <div className="infor-tab-item col-12 row d-flex align-items-center">
+                <div className="col-3">Điểm tích lũy</div>
+                <div className="col-7">
+                    <div className="mb-3"><InputField name='point' disabled control={control} /></div>
                 </div>
             </div>
             <div className="infor-tab-item col-12 row d-flex align-items-center">

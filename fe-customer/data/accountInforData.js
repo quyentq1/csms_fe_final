@@ -6,5 +6,9 @@ export const sidebar = [
     {
         text: 'Danh sách đơn hàng',
         href: '/account/orders',
+    },
+    {
+        text: 'Thông báo',
+        href: '/account/notification',
     }
 ];

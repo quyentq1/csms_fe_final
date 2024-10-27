@@ -24,6 +24,7 @@ const OrderDetailPage = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState('');
     const [methodPayment, setMethodPayment] = useState('');
+    const [shipping, setShipping] = useState('');
 
     useEffect(() => {
         const getOrderDetail = async () => {
@@ -42,6 +43,7 @@ const OrderDetailPage = () => {
                 setPhoneNumber(response.data.phone_number);
                 setAddress(response.data.address);
                 setMethodPayment((response.data.methodPayment));
+                setShipping((response.data.shipping));
             } catch (error) {
                 console.log(error);
                 router.push('/404');
@@ -51,7 +53,7 @@ const OrderDetailPage = () => {
                 // setCreatedAt(fakeOrderDetail.created_at);
                 // setOrderItems(fakeOrderDetail.order_items);
                 // setTotalProductValue(fakeOrderDetail.total_product_value);
-                // setDeliveryCharges(fakeOrderDetail.delivery_charges);
+                // setDeliveryCharges(fakeOrderDetail.);
                 // setTotalOrderValue(fakeOrderDetail.total_order_value);
                 // setCustomerName(fakeOrderDetail.customer_name);
                 // setEmail(fakeOrderDetail.email);
@@ -135,6 +137,10 @@ const OrderDetailPage = () => {
                             <p>
                                 Địa chỉ giao hàng:
                                 <strong>{' ' + address}</strong>
+                            </p>
+                            <p>
+                                Đơn vị vận chuyển:
+                                <strong>{' ' + shipping}</strong>
                             </p>
                         </div>
                     </div>

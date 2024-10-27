@@ -7,6 +7,10 @@ const orderService = {
         return await axiosJWT.get('/order/customer/list');
     },
 
+    getNotification: async () => {
+        return await axiosJWT.get('/order/customer/notification');
+    },
+
     getDetail: async (orderId) => {
         return await axiosJWT.get(`/order/detail/${orderId}`);
     },
@@ -17,6 +21,10 @@ const orderService = {
 
     cancelOrder: async (orderId) => {
         return await axiosClient.put(`/order/change-status/${orderId}/5`);
+    },
+
+    checkDiscount: async (data) => {
+        return await axiosJWT.get(`/order/checkdiscount/${data}`);
     },
 
 };

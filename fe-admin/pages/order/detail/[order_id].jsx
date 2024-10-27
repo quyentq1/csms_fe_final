@@ -77,7 +77,15 @@ const OrderDetailPage = () => {
 							</tr>
 							<tr className=''>
 								<td colSpan="3" className=''>Phí giao hàng</td>
-								<td colSpan="1">{orderDetail.delivery_charges} đ</td>
+								<td colSpan="1">{orderDetail.delivery_charges.} đ</td>
+							</tr>
+							<tr className=''>
+								<td colSpan="3" className=''>Phương thức thanh toán</td>
+								<td colSpan="1">{orderDetail.methodpayment}</td>
+							</tr>
+							<tr className=''>
+								<td colSpan="3" className=''>Đơn vị vận chuyển</td>
+								<td colSpan="1">{orderDetail.shipping}</td>
 							</tr>
 							<tr className='total fw-bold'>
 								<td colSpan="3" className=''>Tổng thanh toán</td>

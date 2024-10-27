@@ -2,6 +2,10 @@ import axiosClient from '@/services/axiosClient';
 
 const productService = {
 
+    getProductSearch: async (s) => {
+        return await axiosClient.get(`/product/customer/search/${s}`);
+    },
+
     getProductList: async (category) => {
         const url = category
             ? `/product/customer/list?category=${category}`

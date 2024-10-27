@@ -7,6 +7,10 @@ export default createQueryKeys('products', {
     list: (category) => ({
         queryKey: [category],
         queryFn: () => productService.getProductList(category)
+    }),    
+    search: (s) => ({
+        queryKey: [s],
+        queryFn: () => productService.getProductSearch(s)
     }),
     detail: (productId) => {
         return {

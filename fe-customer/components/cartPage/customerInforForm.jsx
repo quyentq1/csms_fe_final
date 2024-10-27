@@ -28,6 +28,7 @@ const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', ad
             .required('Vui lòng nhập Địa chỉ của bạn')
             .max(255, 'Địa chỉ không được vượt quá 255 ký tự'),
         payment_method: string(),
+        description: string(),
         amount: Number()
     });
 
@@ -38,6 +39,7 @@ const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', ad
             phoneNumber,
             address,
             payment_method: 'cod',
+            description: '',
         },
         resolver: yupResolver(schema),
     });

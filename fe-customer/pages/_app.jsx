@@ -22,7 +22,8 @@ const App = ({ Component, pageProps }) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <SessionProvider session={pageProps.session}> {/* Moved outside */}
+            
+            <SessionProvider session={pageProps.session}>
                 <Head>
                     <title>elevenT</title>
                     <link rel="icon" href="/img/favicon.ico" />
@@ -32,7 +33,9 @@ const App = ({ Component, pageProps }) => {
                         <Component {...pageProps} />
                     </Layout>
                 </AuthComponent>
-                <ReactQueryDevtools initialIsOpen={false} />
+                {/* {process.env.NODE_ENV === 'development' && (
+                    // <ReactQueryDevtools initialIsOpen={false} />
+                )} */}
             </SessionProvider>
         </QueryClientProvider>
     );

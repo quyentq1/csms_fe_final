@@ -1,39 +1,49 @@
 import { useQuery } from '@tanstack/react-query';
 import { Empty } from 'antd';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 import ProductItem from '@/components/collectionPage/productItem';
-import queries from '@/queries';
 
-
-const CollectionPage = () => {
+const WishlistPage = () => {
     const router = useRouter();
-    const { category } = router.query;
+    const [wishlist, setWishlist] = useState([]);
 
-    const { isError, error, data } = useQuery(queries.products.list(category));
-    if (isError) console.log(error);
-    const productList = data?.data;
+    useEffect(() => {
+        const savedWishlist = Cookies.get('wishlist') ? JSON.parse(Cookies.get('wishlist')) : [];
+        setWishlist(savedWishlist);
+    }, []);
 
     const updateWishlist = (product) => {
-      
+        let updatedWishlist = [...wishlist];
+        const index = updatedWishlist.findIndex(item => item.id === product.product_id);
+        if (index > -1) {
+            updatedWishlist.splice(index, 1);
+        } else {
+            updatedWishlist.push({ id: product.product_id, ...product });
+        }
+        Cookies.set('wishlist', JSON.stringify(updatedWishlist), { expires: 7 });
+        setWishlist(updatedWishlist);
     };
 
     return (
         <div className="product-page container pt-4">
             <div className="product-list row">
-                {productList && productList.length ? (
-                    productList.map((product, index) => {
+            {wishlist.length > 0 ? (
+                    wishlist.map((product, index) => {
                         return (
                             <ProductItem
-                                key={index}
+                                key={product.product_id}
                                 product_id={product.product_id}
-                                name={product.product_name}
-                                img={product.product_image}
+                                name={product.name}
+                                img={product.img}
                                 price={product.price}
                                 colour_id={product.colour_id}
                                 sizes={product.sizes}
                                 rating={product.rating}
                                 feedback_quantity={product.feedback_quantity}
+                                isInWishlist={true}
                                 updateWishlist={updateWishlist}
                             />
                         );
@@ -48,4 +58,4 @@ const CollectionPage = () => {
     );
 };
 
-export default CollectionPage;
+export default WishlistPage;

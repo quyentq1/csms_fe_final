@@ -8,6 +8,7 @@ import { swtoast } from '@/mixins/swal.mixin';
 import queries from '@/queries';
 import customerService from '@/services/customerService';
 
+
 const CustomerInforPage = () => {
     const router = useRouter();
     const queryClient = useQueryClient()
@@ -24,7 +25,8 @@ const CustomerInforPage = () => {
         email: data.data?.email,
         customerName: data.data?.customer_name,
         phoneNumber: data.data?.phone_number,
-        address: data.data?.address
+        address: data.data?.address,
+        point: data.data?.point
     };
 
     const handleUpdateCustomerInfor = useCallback(async (values) => {
@@ -64,6 +66,7 @@ const CustomerInforPage = () => {
                             customerName={customerInfor.customerName}
                             phoneNumber={customerInfor.phoneNumber}
                             address={customerInfor.address}
+                            point={customerInfor.point}
                             handleUpdateCustomerInfor={handleUpdateCustomerInfor}
                         />
                     }
