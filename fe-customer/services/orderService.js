@@ -10,6 +10,14 @@ const orderService = {
     getNotification: async () => {
         return await axiosJWT.get('/order/customer/notification');
     },
+    
+    getNotificationAll: async () => {
+        return await axiosJWT.get('/order/customer/notificationall');
+    },
+
+    updateStatusNotification: async (id) => {
+        return await axiosJWT.put(`/order/customer/notification/change-status/${id}`);
+    },
 
     getDetail: async (orderId) => {
         return await axiosJWT.get(`/order/detail/${orderId}`);

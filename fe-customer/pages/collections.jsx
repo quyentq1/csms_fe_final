@@ -17,7 +17,14 @@ const CollectionPage = () => {
     const updateWishlist = (product) => {
       
     };
-
+    const handleShare = (productId, productName) => {
+        setSelectedProduct({
+          id: productId,
+          name: productName,
+          url: `${window.location.origin}/product/${productId}`
+        });
+        setShareModalVisible(true);
+      };
     return (
         <div className="product-page container pt-4">
             <div className="product-list row">
@@ -35,6 +42,7 @@ const CollectionPage = () => {
                                 rating={product.rating}
                                 feedback_quantity={product.feedback_quantity}
                                 updateWishlist={updateWishlist}
+                                onShare={handleShare}
                             />
                         );
                     })

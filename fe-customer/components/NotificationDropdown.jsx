@@ -31,6 +31,19 @@ const NotificationDropdown = () => {
         setIsDropdownOpen(open);
     };
 
+    const handleReadClick = async (item) => {
+        try {
+            setLoading(true);
+            await orderService.updateStatusNotification(item);
+            const result = await orderService.getNotification();
+            setNotificationList(result.data);
+        } catch (error) {
+            console.error('Error updating notification status:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const NotificationListContent = () => (
         <List
             loading={loading}
@@ -53,8 +66,9 @@ const NotificationDropdown = () => {
                 </div>
             }
             renderItem={(item) => (
-                <List.Item style={{ padding: '12px 8px' }}> {/* Thêm padding cho mỗi item */}
+                <List.Item style={{ padding: '12px 8px' }} > {/* Thêm padding cho mỗi item */}
                     <List.Item.Meta
+                        onClick={() => handleReadClick(item.id)}
                         avatar={<Avatar icon={<BellFilled />} size="large" />} // Tăng kích thước avatar
                         title={
                             <span style={{ 

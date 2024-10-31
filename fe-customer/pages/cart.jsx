@@ -2,7 +2,7 @@ import { swtoast } from '@/mixins/swal.mixin';
 import queries from '@/queries';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useMemo, useState, useEffect } from 'react';
-import { Button, Radio } from 'antd';
+import { Button, Radio, Select } from 'antd';
 import CartItem from '@/components/cartPage/cartItem';
 import CustomerInforForm from '@/components/cartPage/customerInforForm';
 import { formatPrice } from '@/helpers/format';
@@ -26,8 +26,32 @@ const CartPage = () => {
         console.log(error);
         router.push('/404');
     }
-    const [shippingcost, setShippingCost] = useState('J&T expreess');
+    
+    const [listCoupon, setlistCoupon] = useState('');
+    const [codediscount, setcodediscount] = useState('');
 
+    const { isError: isError2, error: error2, data: data2 } = useQuery(queries.products.listcoupon());
+
+    const [valuecoupon, setValuecoupon] = useState(null);
+    useEffect(() => {
+        if (isError2) console.error(error2);
+        if (data2) {
+            const listCouponData = data2.data;
+            setlistCoupon(listCouponData);
+        }
+        if(valuecoupon){
+            const foundCoupon = listCoupon.find(item => item.code === valuecoupon);
+            setMoneyDiscount(foundCoupon.money)
+            setcodediscount(foundCoupon.code)
+            console.log(' oke',foundCoupon.code)
+        }
+    }, [isError2, error2, data2, listCoupon ,valuecoupon]);
+
+    const onChangeDiscount = (newValue) => {
+        setValuecoupon(newValue);
+    };
+
+    const [shippingcost, setShippingCost] = useState('J&T expreess');
     const handleShippingCostChange = (e) => {
         setShippingCost(e.target.value);
     };
@@ -52,43 +76,24 @@ const CartPage = () => {
     // }, [totalPrice, shippingcost]);
     const deliveryCharges = useMemo(() => {
     const shippingFee = shippingcost === 'J&T expreess' ? 35000 : 25000;
-    return {
-        price: totalPrice > 300000 ? 0 : shippingFee,
-        originalPrice: shippingFee,
-        isDiscounted: totalPrice > 300000
-    };
-}, [totalPrice, shippingcost]);
-    const finalTotal = totalPrice + deliveryCharges.price - moneydiscount;
+        return {
+            price: totalPrice > 300000 ? 0 : shippingFee,
+            originalPrice: shippingFee,
+            isDiscounted: totalPrice > 300000
+        };
+    }, [totalPrice, shippingcost]);
+    const finalTotal = (totalPrice + deliveryCharges.price - moneydiscount) > 0 ? totalPrice + deliveryCharges.price - moneydiscount : 0;
 
     const { control, handleSubmit } = useForm();
 
-    const onSubmit = async (data) => {
-        const codediscount = data.codediscount;
-        if(codediscount !== undefined){
-            try {
-                const result = await orderService.checkDiscount(codediscount);
-                console.log('dis ', result)
-                if(result.data.status === 0){
-                    swtoast.error({
-                        text: result.data.message
-                    });
-                }else{
-                    setMoneyDiscount(result.data.money)
-                    swtoast.success({ text: result.data.message });
-                }
-            } catch (err) {
-                console.log(err);
-                swtoast.error({
-                    text: 'Có lỗi khi tạo đơn hàng vui lòng thử lại!'
-                });
-            }
-        }else{
-            swtoast.error({
-                text: 'Vui lòng nhập mã giảm giá!'
-            });
+    const submitCoupon = useCallback(async () => {
+        try {
+            const result = await orderService.checkDiscount(codediscount);
+            console.log('dis ', result)
+        } catch (err) {
+            console.log(err);
         }
-    };
-
+    },[codediscount]);
 
     const handlePlaceOrder = useCallback(async (values) => {
         if (productList.length) {
@@ -111,6 +116,7 @@ const CartPage = () => {
                     delivery_charges: deliveryCharges.price,
                 };
                 await orderService.placeOrder(order);
+                await submitCoupon();
                 clearCart();
                 swtoast.success({ text: 'Đặt hàng thành công' });
             } catch (err) {
@@ -124,7 +130,7 @@ const CartPage = () => {
                 text: 'Chưa có sản phẩm trong giỏ hàng. Vui lòng thêm sản phẩm vào giỏ hàng.'
             });
         }
-    }, [clearCart, productList, shippingcost, deliveryCharges]);
+    }, [clearCart, productList, shippingcost, deliveryCharges, submitCoupon]);
 
     const handlePlaceOrderPaypal = useCallback(async (values, details, data) => {
         if (productList.length) {
@@ -243,13 +249,21 @@ const CartPage = () => {
                     </div>
                     <div className="discount">
                         <div className="title">Mã giảm giá</div>
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form >
                             <div className="row">
                                 <div className="row-12 mb-3">
-                                    <InputField name='codediscount' control={control} placeholder={'Mã ưu đãi'} />
-                                </div>
-                                <div className="row-12 mb-3">
-                                    <Button type="submit" htmlType="button" onClick={handleSubmit(onSubmit)}>Áp dụng</Button>
+                                    {/* <InputField name='codediscount' control={control} placeholder={'Mã ưu đãi'} /> */}
+                                    <Select onChange={onChangeDiscount} control={control} placeholder="Chọn mã giảm giá" style={{ width: '100%' }}>
+                                        {listCoupon && Array.isArray(listCoupon) ? (
+                                            listCoupon.map((item, index) => (
+                                                <Select.Option key={index} value={item.code}>
+                                                    {item.code} - {item.money}
+                                                </Select.Option>
+                                            ))
+                                        ) : (
+                                            <Select.Option disabled>No coupons available.</Select.Option>
+                                        )}
+                                    </Select>
                                 </div>
                             </div>
                         </form>
@@ -262,13 +276,13 @@ const CartPage = () => {
                         <div className="pricing-info-item d-flex justify-content-between">
                             <p>Phí giao hàng</p>
                             {deliveryCharges.isDiscounted ? (
-    <div>
-        <span style={{ textDecoration: 'line-through', color: '#FF0000' }}>{formatPrice(deliveryCharges.originalPrice)}đ</span>
-        <span style={{ color: '#00FF00' }}> → 0đ</span>
-    </div>
-) : (
-    <span>{formatPrice(deliveryCharges.price)}đ</span>
-)}
+                                <div>
+                                    <span style={{ textDecoration: 'line-through', color: '#FF0000' }}>{formatPrice(deliveryCharges.originalPrice)}đ</span>
+                                    <span style={{ color: '#00FF00' }}> → 0đ</span>
+                                </div>
+                            ) : (
+                                <span>{formatPrice(deliveryCharges.price)}đ</span>
+                            )}
                             {/* <p>{formatPrice(deliveryCharges)}đ</p> */}
                         </div>
                         {moneydiscount > 0 ? (

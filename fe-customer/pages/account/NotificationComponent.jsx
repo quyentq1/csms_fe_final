@@ -17,6 +17,7 @@ const NotificationComponent = () => {
             try {
                 setLoading(true);
                 const result = await orderService.getNotification();
+                console.log("qqq",result.data)
                 setNotificationList(result.data);
             } catch (err) {
                 console.log(err);

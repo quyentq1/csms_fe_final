@@ -2,6 +2,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 
 import feedbackService from '@/services/feedbackService';
 import productService from '@/services/productService';
+import couponService from '@/services/couponService';
 
 export default createQueryKeys('products', {
     list: (category) => ({
@@ -47,5 +48,9 @@ export default createQueryKeys('products', {
             queryKey: [productId, colourId, sizeId],
             queryFn: () => productService.getVariant(productId, colourId, sizeId)
         };
-    }
+    },
+    listcoupon: () => ({
+        queryKey: [],
+        queryFn: () => couponService.getCouponList()
+    }), 
 });

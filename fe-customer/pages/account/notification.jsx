@@ -23,7 +23,7 @@ const NotificationPage = () => {
     useEffect(() => {
         const getNotificationList = async () => {
             try {
-                const result = await orderService.getNotification();
+                const result = await orderService.getNotificationAll();
                 setNotificationList(result.data);
                 console.log("setNotificationList a hau",result.data);
             } catch (err) {
