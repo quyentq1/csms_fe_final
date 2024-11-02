@@ -17,7 +17,7 @@ const CouponManagementPage = () => {
   useEffect(() => {
     const getlistCoupon = async () => {
       try {
-        const result = await axios.get('http://103.221.221.195:8080/api/coupon/admin/list');
+        const result = await axios.get('https://www.backend.csms.io.vn/api/coupon/admin/list');
         setlistCoupon(result.data);
       } catch (err) {
         console.log(err);
@@ -27,7 +27,7 @@ const CouponManagementPage = () => {
   }, []);
 
   const refreshCouponTable = async () => {
-    const result = await axios.get('http://103.221.221.195:8080/api/coupon/admin/list');
+    const result = await axios.get('https://www.backend.csms.io.vn/api/coupon/admin/list');
     setlistCoupon(result.data);
   };
 

@@ -1,1 +1,1 @@
-export const homeAPI = 'http://103.221.221.195:8080/api'
+export const homeAPI = 'https://www.backend.csms.io.vn/api'

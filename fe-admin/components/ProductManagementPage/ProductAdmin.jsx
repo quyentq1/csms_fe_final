@@ -45,7 +45,7 @@ const ProductAdmin = (props) => {
         }
         if (newQuantity) {
             try {
-                await axios.put('http://103.221.221.195:8080/api/product-variant/update-quantity',
+                await axios.put('https://www.backend.csms.io.vn/api/product-variant/update-quantity',
                     {
                         product_variant_ids: [props.product_variant_id],
                         quantity: newQuantity
@@ -69,7 +69,7 @@ const ProductAdmin = (props) => {
         if (state) {
             try {
                 setDisabledInputState(true)
-                await axios.put('http://103.221.221.195:8080/api/product-variant/on',
+                await axios.put('https://www.backend.csms.io.vn/api/product-variant/on',
                     { product_variant_ids: [props.product_variant_id] })
                 setDisabledInputState(false)
                 props.refreshProductVariantTable()
@@ -82,7 +82,7 @@ const ProductAdmin = (props) => {
         } else {
             try {
                 setDisabledInputState(true)
-                await axios.put('http://103.221.221.195:8080/api/product-variant/off',
+                await axios.put('https://www.backend.csms.io.vn/api/product-variant/off',
                     { product_variant_ids: [props.product_variant_id] })
                 setDisabledInputState(false)
                 props.refreshProductVariantTable()
@@ -107,7 +107,7 @@ const ProductAdmin = (props) => {
             .then(async (result) => {
                 if (result.isConfirmed) {
                     try {
-                        await axios.delete('http://103.221.221.195:8080/api/product-variant/delete',
+                        await axios.delete('https://www.backend.csms.io.vn/api/product-variant/delete',
                             { data: { product_variant_ids: [props.product_variant_id] } })
                         props.refreshProductVariantTable()
                         swtoast.success({
