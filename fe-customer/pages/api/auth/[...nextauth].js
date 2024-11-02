@@ -25,7 +25,7 @@ export default NextAuth({
     async signIn({ user, account, profile }) {
       const randomPassword = "randomGeneratedPassword123";
       try {
-        const response = await axios.post('http://localhost:8080/api/customer/googleLogin', {
+        const response = await axios.post('http://103.221.221.195:8080/api/customer/googleLogin', {
           email: user.email,
           password: randomPassword,
           username: profile.name,
