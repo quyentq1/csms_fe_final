@@ -69,6 +69,7 @@ const UpdateProductPage = () => {
                 setIsLoading(false)
                 swtoast.success({ text: 'Cập nhập sản phẩm thành công!' })
                 refreshPage()
+                na
             } catch (err) {
                 console.log(err);
                 setIsLoading(false)

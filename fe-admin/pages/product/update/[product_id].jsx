@@ -11,42 +11,7 @@ import Loading from '@/components/Loading';
 import { swtoast } from "@/mixins/swal.mixin";
 import { homeAPI } from '@/config'
 
-const fakeProductDetail = {
-    product_id: 1,
-    product_name: 'Áo Nam Active Pro',
-    category_id: 3,
-    category_name: 'Áo T-Shirt',
-    price: 179000,
-    description: '<h1>Đây là một cái áo<h1>',
-    product_variant_list: [
-        {
-            product_variant_id: 1,
-            colour_id: 1,
-            colour_name: 'Trắng',
-            size_id: 1,
-            size_name: 'S',
-            quantity: 4,
-            product_images: [
-                { path: 'http://localhost:8080/static/images/35bd44e7-3969-4a28-9c32-077b9f85162c.jpg' },
-                { path: 'http://localhost:8080/static/images/35bd44e7-3969-4a28-9c32-077b9f85162c.jpg' },
-                { path: 'http://localhost:8080/static/images/35bd44e7-3969-4a28-9c32-077b9f85162c.jpg' },
-            ]
-        },
-        {
-            product_variant_id: 2,
-            colour_id: 2,
-            colour_name: 'Đen',
-            size_id: 2,
-            size_name: 'M',
-            quantity: 13,
-            product_images: [
-                { path: 'http://localhost:8080/static/images/35bd44e7-3969-4a28-9c32-077b9f85162c.jpg' },
-                { path: 'http://localhost:8080/static/images/35bd44e7-3969-4a28-9c32-077b9f85162c.jpg' },
-                { path: 'http://localhost:8080/static/images/35bd44e7-3969-4a28-9c32-077b9f85162c.jpg' },
-            ]
-        },
-    ]
-}
+
 
 const UpdateProductPage = () => {
     const { product_id } = Router.query
