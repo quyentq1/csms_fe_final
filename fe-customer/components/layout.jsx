@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
                     <div className="phone-vr">
                         <div className="phone-vr-circle-fill"></div>
                         <div className="phone-vr-img-circle">
-                            <a target="_blank" href="https://zalo.me/">
+                            <a target="_blank" href="https://zalo.me/+84383691293">
                                 <Image src={'/img/footer/zalo.png'} width={100} height={100} alt="Zalo" />
                             </a>
                         </div>

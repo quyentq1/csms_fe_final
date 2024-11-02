@@ -17,7 +17,7 @@ const ProductManagementPage = () => {
   useEffect(() => {
     const getListProductVariant = async () => {
       try {
-        const result = await axios.get('http://localhost:8080/api/product/admin/list');
+        const result = await axios.get('http://103.221.221.195:8080/api/product/admin/list');
         setListProductVariant(result.data);
       } catch (err) {
         console.log(err);
@@ -27,7 +27,7 @@ const ProductManagementPage = () => {
   }, []);
 
   const refreshProductVariantTable = async () => {
-    const result = await axios.get('http://localhost:8080/api/product/admin/list');
+    const result = await axios.get('http://103.221.221.195:8080/api/product/admin/list');
     setListProductVariant(result.data);
   };
 

@@ -38,7 +38,7 @@ const Category = () => {
         if (state) {
             try {
                 setDisabledInputState(true);
-                await axios.put('http://localhost:8080/api/category/on', {
+                await axios.put('http://103.221.221.195:8080/api/category/on', {
                     category_ids: [category_id],  // Sử dụng category_id ở đây
                 });
                 setDisabledInputState(false);
@@ -52,7 +52,7 @@ const Category = () => {
         } else {
             try {
                 setDisabledInputState(true);
-                await axios.put('http://localhost:8080/api/category/off', {
+                await axios.put('http://103.221.221.195:8080/api/category/off', {
                     category_ids: [category_id],  // Sử dụng category_id ở đây
                 });
                 setDisabledInputState(false);

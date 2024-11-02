@@ -15,7 +15,7 @@ const ColourBox = ({ selectedColours, setSelectedColours, colourBoxValue, setCol
     useEffect(() => {
         const getColourList = async () => {
             try {
-                const result = await axios.get('http://localhost:8080/api/colour/list');
+                const result = await axios.get('http://103.221.221.195:8080/api/colour/list');
                 setColourList(result.data);
             } catch (err) {
                 console.log(err);

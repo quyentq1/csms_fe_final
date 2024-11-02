@@ -77,7 +77,7 @@ const OrderRow = (props) => {
             .then(async (result) => {
                 if (result.isConfirmed) {
                     try {
-                        await axios.put('http://localhost:8080/api/order/change-status/' + order_id + '/6')
+                        await axios.put('http://103.221.221.195:8080/api/order/change-status/' + order_id + '/6')
                         refreshOrderTable();
                         swtoast.success({
                             text: 'Hủy đơn hàng thành công!'
@@ -105,7 +105,7 @@ const OrderRow = (props) => {
                 .then(async (result) => {
                     if (result.isConfirmed) {
                         try {
-                            await axios.put('http://localhost:8080/api/order/change-status/' + order_id + '/2')
+                            await axios.put('http://103.221.221.195:8080/api/order/change-status/' + order_id + '/2')
                             refreshOrderTable();
                             swtoast.success({
                                 text: 'Xác nhận đơn hàng thành công!'
@@ -131,7 +131,7 @@ const OrderRow = (props) => {
                 .then(async (result) => {
                     if (result.isConfirmed) {
                         try {
-                            await axios.put('http://localhost:8080/api/order/change-status/' + order_id + '/3')
+                            await axios.put('http://103.221.221.195:8080/api/order/change-status/' + order_id + '/3')
                             refreshOrderTable();
                             swtoast.success({
                                 text: 'Xác nhận bàn giao cho đơn vị vận chuyển thành công!'
@@ -157,7 +157,7 @@ const OrderRow = (props) => {
                 .then(async (result) => {
                     if (result.isConfirmed) {
                         try {
-                            await axios.put('http://localhost:8080/api/order/change-status/' + order_id + '/4')
+                            await axios.put('http://103.221.221.195:8080/api/order/change-status/' + order_id + '/4')
                             refreshOrderTable();
                             swtoast.success({
                                 text: 'Xác nhận đã giao thành công!'

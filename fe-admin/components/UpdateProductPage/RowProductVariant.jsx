@@ -26,7 +26,7 @@ const RowProductVariant = ({ index, productVariantList, setProductVariantList, s
             .then(async (result) => {
                 if (result.isConfirmed) {
                     try {
-                        await axios.delete('http://localhost:8080/api/product-variant/delete',
+                        await axios.delete('http://103.221.221.195:8080/api/product-variant/delete',
                             { data: { product_variant_ids: [productVariantList[index].productVariantId] } })
                         refreshPage()
                         swtoast.success({

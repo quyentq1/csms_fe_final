@@ -34,7 +34,7 @@ const UserAdmin = (props) => {
         if (state) {
             try {
                 setDisabledInputState(true)
-                await axios.put('http://localhost:8080/api/coupon/on',
+                await axios.put('http://103.221.221.195:8080/api/coupon/on',
                     { id: [props.id] })
                 setDisabledInputState(false)
                 props.refreshUserTable()
@@ -47,7 +47,7 @@ const UserAdmin = (props) => {
         } else {
             try {
                 setDisabledInputState(true)
-                await axios.put('http://localhost:8080/api/coupon/off',
+                await axios.put('http://103.221.221.195:8080/api/coupon/off',
                     { id: [props.id] })
                 setDisabledInputState(false)
                 props.refreshUserTable()
@@ -72,7 +72,7 @@ const UserAdmin = (props) => {
             .then(async (result) => {
                 if (result.isConfirmed) {
                     try {
-                        await axios.delete('http://localhost:8080/api/user/delete',
+                        await axios.delete('http://103.221.221.195:8080/api/user/delete',
                             { data: { customer_info_id: [props.customer_info_id] } })
                         props.refreshUserTable()
                         swtoast.success({

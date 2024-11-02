@@ -17,24 +17,24 @@ const StatisticalManagementPage = () => {
 
     useEffect(() => {
         const refreshTotalProduct = async () => {
-            const result = await axios.get('http://localhost:8080/api/product/totalProduct')
+            const result = await axios.get('http://103.221.221.195:8080/api/product/totalProduct')
             settotalProduct(result.data.totalProducts)
         }
         refreshTotalProduct();
 
         const refreshTotalUser = async () => {
-            const result = await axios.get('http://localhost:8080/api/customer/totalUser')
+            const result = await axios.get('http://103.221.221.195:8080/api/customer/totalUser')
             settotalUser(result.data.totalUser)
         }
         refreshTotalUser();
 
         const refreshTotalOrderPerDay = async () => {
-            const result = await axios.get('http://localhost:8080/api/order/totalOrderPerDay')
+            const result = await axios.get('http://103.221.221.195:8080/api/order/totalOrderPerDay')
             settotalOrderPerDay(result.data.totalOrdersPerDay)
         }
         refreshTotalOrderPerDay();
         const refreshTotalRevenuePerDay = async () => {
-            const result = await axios.get('http://localhost:8080/api/order/totalRevenuePerDay')
+            const result = await axios.get('http://103.221.221.195:8080/api/order/totalRevenuePerDay')
             settotalRevenuePerDay(result.data.totalRevenuePerDay)
         }
         refreshTotalRevenuePerDay();
