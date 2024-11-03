@@ -77,7 +77,7 @@ const OrderDetailPage = () => {
 							</tr>
 							<tr className=''>
 								<td colSpan="3" className=''>Phí giao hàng</td>
-								<td colSpan="1">{orderDetail.delivery_charges.} đ</td>
+								<td colSpan="1">{orderDetail.delivery_charges} đ</td>
 							</tr>
 							<tr className=''>
 								<td colSpan="3" className=''>Phương thức thanh toán</td>

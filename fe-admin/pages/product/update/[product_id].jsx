@@ -5,7 +5,7 @@ import { Input, InputNumber, Empty } from 'antd'
 
 import Header from '@/components/Header';
 import Category from '@/components/Category';
-import CKeditor from '@/components/CKEditor';
+import CKeditor from '@/components/CKeditor';
 import RowProductVariant from '@/components/UpdateProductPage/RowProductVariant';
 import Loading from '@/components/Loading';
 import { swtoast } from "@/mixins/swal.mixin";

@@ -45,7 +45,7 @@ const UserManagementPage = () => {
 
     if (searchQuery) {
       sortedData = sortedData.filter((item) =>
-        item.customer_info_id.toLowerCase().includes(searchQuery.toLowerCase())
+        item.customer_name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
