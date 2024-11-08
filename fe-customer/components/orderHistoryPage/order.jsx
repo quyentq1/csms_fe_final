@@ -19,7 +19,9 @@ const Order = (props) => {
 
     return (
         <Link className="order border-radius" href={`/get-order/${id}`}>
-            <div className="order-header border-radius d-flex align-items-center justify-content-between">
+            <div className="order-header border-radius d-flex align-items-center justify-content-between" style={{
+                            backgroundColor: '#1976d2',color: '#fff',
+                                            }}>
                 <div>
                     <p className="order-title fw-bold">#{id}</p>
                     <p className="order-date">{formatDate(createdAt)}</p>

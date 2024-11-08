@@ -1,4 +1,4 @@
-import { BellFilled } from '@ant-design/icons';
+import { BellOutlined } from '@ant-design/icons';
 import { Dropdown, Badge, List, Avatar } from 'antd';
 import { useEffect, useState } from 'react';
 import { formatTime } from '@/helpers/format';
@@ -73,7 +73,7 @@ const NotificationDropdown = () => {
                         title={
                             <span style={{ 
                                 color: '#1890ff',
-                                fontSize: '14px', // Tăng kích thước chữ
+                                fontSize: '24px', // Tăng kích thước chữ
                                 fontWeight: '500' 
                             }}>
                                 {item.content}
@@ -120,8 +120,8 @@ const NotificationDropdown = () => {
                         }}
                         size="small"
                     >
-                        <BellFilled style={{ 
-                            fontSize: '16px',
+                        <BellOutlined  style={{ 
+                            fontSize: '24px',
                             color: 'inherit'
                         }} />
                     </Badge>

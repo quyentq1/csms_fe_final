@@ -13,9 +13,10 @@ import Register from './register';
 import { useSession, signIn, signOut } from 'next-auth/react'; // Import signIn and signOut
 import ForgotPass from './forgotpass';
 import { useEffect, useRef } from 'react';
-import NotificationDropdown from './NotificationDropdown'; 
-import { HeartFilled } from '@ant-design/icons';
-
+import NotificationDropdown from './NotificationDropdown';
+import { HeartOutlined ,ShoppingCartOutlined} from '@ant-design/icons';
+import { Input } from 'antd';
+import styled from 'styled-components';
 const Header = () => {
     const [isLogInOpen, setIsLogInOpen] = useState(false);
     const [isForgotOpen, setIsForgotOpen] = useState(false);
@@ -25,7 +26,7 @@ const Header = () => {
 
     const { data: session, status } = useSession(); // Get session and status
     const isUserLoggedIn = status === 'authenticated'; // Check if user is logged in via next-auth
-
+    const { Search } = Input;
     const setCustomerLogin = useCustomerStore((state) => state.setCustomerLogin);
     useEffect(() => {
         if (session?.access_token) {
@@ -36,7 +37,6 @@ const Header = () => {
             setCustomerLogin(customerInfor);
         }
     }, [session, setCustomerLogin]);
-
     const { isError, error, data } = useQuery({
         ...queries.categories.list(),
     });
@@ -58,10 +58,8 @@ const Header = () => {
     };
 
     const searchInputRef = useRef('');
-    const searchForm = (event) => {
-        event.preventDefault();
-        const searchValue = searchInputRef.current.value;
-        window.location.href = `/search?s=${encodeURIComponent(searchValue).replace(/%20/g, '+')}`;
+    const handleSearch = (value) => {
+        window.location.href = `/search?s=${encodeURIComponent(value).replace(/%20/g, '+')}`;
     };
     const handleSignOut = () => {
         swalert
@@ -194,23 +192,10 @@ const Header = () => {
 
 
                 <ul className="header-inner p-2 ms-auto">
+
                     <li className="search inner-item menu-item fw-bold text-uppercase">
                         <div className="h-8 relative transform z-20 flex items-center bg-gray-700 rounded-sm hover:shadow-xl hover:scale-105 transition duration-500">
-                            <form method="get" action="/search" onSubmit={searchForm}>
-                                <div className="flex px-2 w-42 space-x-2 rounded-sm">
-                                    <input
-                                        ref={searchInputRef}
-                                        name="s"
-                                        type="text"
-                                        placeholder="Nhập từ khóa..."
-                                        defaultValue=""
-                                        className="bg-gray-700 text-gray-200 text-sm font-normal outline-none"
-                                    />
-                                    <svg onClick={searchForm} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="iconsearch h-5 w-5 opacity-50 text-gray-200 cursor-pointer">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                    </svg>
-                                </div>
-                            </form>
+                            <Search placeholder="input search text" onSearch={handleSearch} enterButton />
                         </div>
                     </li>
                     {!isLoggedIn && !isUserLoggedIn ? (
@@ -227,6 +212,7 @@ const Header = () => {
                             <li className="inner-item menu-item fw-bold text-uppercase">
                                 <Link href="/account/infor">Account</Link>
                             </li>
+
                             <li
                                 onClick={handleSignOut} // Handle sign out using next-auth
                                 className="inner-item menu-item fw-bold text-uppercase"
@@ -235,20 +221,25 @@ const Header = () => {
                             </li>
                         </>
                     )}
-                    <li onClick={() => checkLogin()} className="cart inner-item menu-item fw-bold text-uppercase">
-                        <FaShoppingBag />
+                    <li
+                        onClick={() => checkLogin()}
+                        className="cart inner-item menu-item fw-bold text-uppercase icon-hover"
+                        style={{ fontSize: '24px' , }} // Tăng kích thước icon
+                    >
+                        <ShoppingCartOutlined />
                     </li>
-                    <li className="cart inner-item menu-item fw-bold text-uppercase">
+                    <li
+                        className="cart inner-item menu-item fw-bold text-uppercase"
+                        style={{ fontSize: '24px' }} // Tăng kích thước icon
+                    >
                         <Link href="/wishlist">
-                            <HeartFilled />
+                        <HeartOutlined />
                         </Link>
                     </li>
-                    {/* <li style={{marginLeft:'-25px'}} className="cart inner-item menu-item fw-bold text-uppercase" >
-                        <Link href="/account/notification">
-                        <BellFilled />
-                        </Link>
-                    </li> */}
-                    <NotificationDropdown />
+                    <NotificationDropdown
+                        // Tăng kích thước icon
+                    />
+                   
                 </ul>
             </div>
         </div>

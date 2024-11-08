@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import Category from '@/components/Category';
 import ColourBox from '@/components/CreateProductPage/ColourBox';
 import SizeBox from '@/components/CreateProductPage/SizeBox';
-import CKeditor from '@/components/CKEditor';
+import CKeditor from '@/components/CKeditor';
 import RowProductVariant from '@/components/CreateProductPage/RowProductVariant';
 import Loading from '@/components/Loading';
 import { swtoast } from "@/mixins/swal.mixin";

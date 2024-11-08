@@ -98,7 +98,7 @@ const OrderDetailPage = () => {
                         <h1 className="title">Thông tin đơn hàng của bạn</h1>
                         <div className="d-flex row align-items-center justify-content-between">
                             <div className="col-3">{renderCancelBtn}</div>
-                            <div className="col-6 order-title border-radius d-flex align-items-center justify-content-center fw-bold">
+                            <div className="col-6 order-title border-radius d-flex align-items-center justify-content-center fw-bold" >
                                 <div>
                                     ĐƠN HÀNG #{orderId}
                                     <span className="order-state">{stateName}</span>

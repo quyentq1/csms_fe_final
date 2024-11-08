@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Router from 'next/router';
 
 const HomePage = () => {
-	useEffect(() => { Router.push('/product/manage'); }, []);
+	useEffect(() => { Router.push('/statistical/manage'); }, []);
 
 	return (
 		<div className="Home"></div>

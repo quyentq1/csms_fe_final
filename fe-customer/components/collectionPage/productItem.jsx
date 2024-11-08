@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { memo, useState, useEffect } from 'react';
 import { Modal, Button, message } from 'antd';
-import { 
-    FacebookShareButton, 
-    TwitterShareButton, 
+import {
+    FacebookShareButton,
+    TwitterShareButton,
     LinkedinShareButton,
     FacebookIcon,
     TwitterIcon,
@@ -14,6 +14,74 @@ import {
 
 import { formatRate } from '@/helpers/format';
 import Cookies from 'js-cookie';
+
+const styles = {
+    productItem: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    productThumbnails: {
+        position: 'relative',
+        width: '70%', // Thay đổi từ 100% sang 70%
+        paddingTop: '70%', // Giữ tỷ lệ khung hình vuông
+        overflow: 'hidden',
+        margin: '0 auto', // Căn giữa thumbnail
+    },
+    thumbnailContainer: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: '15px', // Thêm padding phía trên
+    },
+    image: {
+        objectFit: 'cover',
+    },
+    inforProduct: {
+        padding: '15px 0',
+        textAlign: 'center',
+    },
+    productName: {
+        fontSize: '16px',
+        fontWeight: '500',
+        marginBottom: '8px',
+        color: '#333',
+        textDecoration: 'none',
+        display: 'block',
+    },
+    price: {
+        fontSize: '18px',
+        color: '#ff4d4f',
+        fontWeight: 'bold',
+        margin: '0',
+    },
+    rateBox: {
+        position: 'absolute',
+        top: '10px',
+        left: '10px',
+        right: '10px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        zIndex: 1,
+    },
+    sizeBox: {
+        position: 'absolute',
+        bottom: '10px',
+        left: '10px',
+        right: '10px',
+        display: 'flex',
+        gap: '5px',
+    },
+    sizeItem: {
+        background: 'rgba(255, 255, 255, 0.8)',
+        padding: '2px 8px',
+        borderRadius: '4px',
+        fontSize: '12px',
+    }
+};
 
 const ProductItem = (props) => {
     const [isInWishlist, setIsInWishlist] = useState(false);
@@ -60,7 +128,10 @@ const ProductItem = (props) => {
         cursor: 'pointer',
         fontSize: '20px',
         marginLeft: '10px',
-        transition: 'color 0.3s ease',
+        color: '#fff',
+        background: 'rgba(0, 0, 0, 0.5)',
+        padding: '5px',
+        borderRadius: '50%',
     };
 
     const modalStyle = {
@@ -70,21 +141,21 @@ const ProductItem = (props) => {
 
     const shareButtonsStyle = {
         display: 'flex',
-        gap:'25px',
+        justifyContent: 'center',
+        gap: '25px',
         marginBottom: '20px',
     };
 
     const copyLinkStyle = {
         display: 'flex',
-        marginTop: '20px',
+        gap: '10px',
     };
 
     const linkInputStyle = {
         flexGrow: 1,
-        // padding: '8px 12px',
         border: '1px solid #d9d9d9',
         borderRadius: '4px 0 0 4px',
-        fontSize: '14px',
+        padding: '8px 12px',
     };
 
     const copyButtonStyle = {
@@ -92,69 +163,76 @@ const ProductItem = (props) => {
     };
 
     return (
-        <div className="product-item col-6 col-md-4 col-lg-3 col-xxl">
+        <div style={styles.productItem}>
             <Link
                 href={{
                     pathname: `/product/${props.product_id}`,
                     query: { colour: props.colour_id }
                 }}
             >
-                <div className='product-thumbnails position-relative'>
-                    <Image className="img" src={props.img} fill alt={props.name} />
-                    <div className="position-absolute rate-box">
-                        <span className="d-flex justify-content-start align-items-center">
-                            <span className="rating d-flex justify-content-start align-items-center">
-                                {formatRate(props.rating)}
+                <div style={styles.thumbnailContainer}>
+                <div style={styles.productThumbnails}>
+                    <Image
+                        style={{
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                        }}
+                        src={props.img}
+                        fill
+                        alt={props.name}
+                        priority
+                    />
+                    <div style={styles.rateBox}>
+                        <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.8)', padding: '4px 8px', borderRadius: '4px' }}>
+                            <span>{formatRate(props.rating)}</span>
+                            <StarFilled style={{ color: '#fadb14', marginLeft: '4px' }} />
+                            <span style={{ marginLeft: '4px', color: '#666' }}>
+                                ({props.feedback_quantity})
                             </span>
-                            <StarFilled className="d-flex justify-content-start align-items-center" />
-                            <span className="feedback_quantity text-primary d-flex justify-content-start align-items-center">
-                                ⟮{props.feedback_quantity}⟯
-                            </span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '10px' }}>
                             {isInWishlist ? (
                                 <HeartFilled
                                     onClick={(event) => handleWishlistClick(event)}
-                                    className="wishlist-icon d-flex justify-content-start align-items-center"
-                                    style={{ color: 'black' }} 
+                                    style={{ ...shareIconStyle, color: '#ff4d4f' }}
                                 />
                             ) : (
                                 <HeartOutlined
                                     onClick={(event) => handleWishlistClick(event)}
-                                    className="wishlist-icon d-flex justify-content-start align-items-center"
+                                    style={shareIconStyle}
                                 />
                             )}
                             <ShareAltOutlined
                                 onClick={handleShareClick}
                                 style={shareIconStyle}
-                                className="d-flex justify-content-start align-items-center"
                             />
-                        </span>
+                        </div>
                     </div>
-                    <div className="size-box position-absolute">
+                    <div style={styles.sizeBox}>
                         {props.sizes.map((item, index) => (
-                            <span className="size-item d-inline-block text-center" key={index}>
+                            <span style={styles.sizeItem} key={index}>
                                 {item}
                             </span>
                         ))}
                     </div>
                 </div>
+                </div>
             </Link>
-            <div className="infor-product">
+            <div style={styles.inforProduct}>
                 <Link
                     href={{
                         pathname: `/product/${props.product_id}`,
                         query: { colour: props.colour_id }
                     }}
                 >
-                    <h6>{props.name}</h6>
+                    <h6 style={styles.productName}>{props.name}</h6>
                 </Link>
-                <div className="d-flex justify-content-start">
-                    <p className="price-after text-danger fw-bold">{props.price}đ</p>
-                </div>
+                <p style={styles.price}>{props.price}đ</p>
             </div>
-            
+
             <Modal
                 title="Share this product"
-                visible={isShareModalVisible}
+                open={isShareModalVisible}
                 onCancel={handleModalClose}
                 footer={null}
                 style={modalStyle}
@@ -171,15 +249,15 @@ const ProductItem = (props) => {
                     </LinkedinShareButton>
                 </div>
                 <div style={copyLinkStyle}>
-                    <input 
+                    <input
                         style={linkInputStyle}
-                        type="text" 
-                        value={`${window.location.origin}/product/${props.product_id}?colour=${props.colour_id}`} 
-                        readOnly 
+                        type="text"
+                        value={`${window.location.origin}/product/${props.product_id}?colour=${props.colour_id}`}
+                        readOnly
                     />
-                    <Button 
+                    <Button
                         style={copyButtonStyle}
-                        type="primary" 
+                        type="primary"
                         onClick={handleCopyLink}
                     >
                         Copy Link
@@ -190,4 +268,4 @@ const ProductItem = (props) => {
     );
 };
 
-export default memo(ProductItem)
+export default memo(ProductItem);

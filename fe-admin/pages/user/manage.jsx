@@ -6,6 +6,7 @@ import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import Header from '@/components/Header';
 import Heading from '@/components/Heading';
 import UserAdmin from '@/components/UserManagementPage/UserAdmin';
+import SortBar from '@/components/SortBar'; // Đảm bảo đường dẫn chính xác
 import Router from 'next/router';
 
 const UserManagementPage = () => {
@@ -38,6 +39,11 @@ const UserManagementPage = () => {
       setSortColumn(column);
       setSortDirection('asc');
     }
+  };
+
+  const handleSortFromSortBar = (sortType) => {
+    // Xử lý hành động sắp xếp từ SortBar
+    handleSort(sortType);
   };
 
   const sortAndFilterData = () => {
@@ -75,6 +81,9 @@ const UserManagementPage = () => {
       <Header title="Quản lý khách hàng" />
       <div className="wrapper manager-box">
         <Heading title="Tất cả khách hàng" />
+        {/* Thêm SortBar vào đây */}
+        <SortBar onSort={handleSortFromSortBar} />
+        
         <div className="search-box">
           <input
             type="text"
@@ -91,6 +100,7 @@ const UserManagementPage = () => {
                   title="Tên khách hàng"
                   className="name col-infor-product"
                   onClick={() => handleSort('customer_name')}
+                  style={{ width: '15%' }}
                 >
                   Tên khách hàng
                   {sortColumn === 'customer_name' && (
@@ -98,9 +108,10 @@ const UserManagementPage = () => {
                   )}
                 </th>
                 <th
-                  title="Tiền"
+                  title="Tiền" 
                   className="col-money"
                   onClick={() => handleSort('phone_number')}
+                  style={{ width: '15%' }}
                 >
                   Số điện thoại
                   {sortColumn === 'phone_number' && (
@@ -111,6 +122,7 @@ const UserManagementPage = () => {
                   title="Địa chỉ"
                   className="col-address"
                   onClick={() => handleSort('address')}
+                  style={{ width: '45%' }}
                 >
                   Địa chỉ
                   {sortColumn === 'address' && (
@@ -131,35 +143,28 @@ const UserManagementPage = () => {
                 </th>
               </tr>
             </thead>
-          </table>
-          {sortAndFilterData().length ? (
-            sortAndFilterData().map((item, index) => {
-              return (
-                <UserAdmin
-                  key={index}
-                  customer_info_id={item.customer_info_id}
-                  customer_name={item.customer_name}
-                  phone_number={item.phone_number}
-                  address={item.address}
-                  point={item.point}
-                  refreshUserTable={refreshUserTable}
-                />
-              );
-            })
-          ) : (
-            <table
-              className="table w-100 table-hover align-middle table-bordered"
-              style={{ height: '400px' }}
-            >
-              <tbody>
+            <tbody>
+              {sortAndFilterData().length ? (
+                sortAndFilterData().map((item, index) => (
+                  <UserAdmin
+                    key={index}
+                    customer_info_id={item.customer_info_id}
+                    customer_name={item.customer_name}
+                    phone_number={item.phone_number}
+                    address={item.address}
+                    point={item.point}
+                    refreshUserTable={refreshUserTable}
+                  />
+                ))
+              ) : (
                 <tr>
-                  <td colSpan={6}>
+                  <td colSpan={5}>
                     <Empty />
                   </td>
                 </tr>
-              </tbody>
-            </table>
-          )}
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
