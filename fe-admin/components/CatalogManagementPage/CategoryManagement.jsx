@@ -47,7 +47,7 @@ const Category = () => {
                 console.log(e);
                 refreshCategoryTable();
                 setDisabledInputState(false);
-                swtoast.error({ text: 'Xảy ra lỗi khi mở bán vui lòng thử lại!' });
+                swtoast.error({ text: 'An error occurred while opening the sale, please try again.!' });
             }
         } else {
             try {
@@ -61,22 +61,22 @@ const Category = () => {
                 console.log(e);
                 refreshCategoryTable();
                 setDisabledInputState(false);
-                swtoast.error({ text: 'Xảy ra lỗi khi tắt sản phẩm vui lòng thử lại!' });
+                swtoast.error({ text: 'An error occurred while opening the sale, please try again.!' });
             }
         }
     };
 
     const handleCreateCategoryLevel1 = async () => {
         const { value: newCategory } = await Swal.fire({
-            title: 'Nhập tên danh mục mới',
+            title: 'Enter new category name',
             input: 'text',
             inputLabel: '',
-            inputPlaceholder: 'Tên danh mục mới..',
+            inputPlaceholder: 'New category name..',
             showCloseButton: true,
         });
         if (!newCategory) {
             swtoast.fire({
-                text: 'Thêm danh mục mới không thành công!',
+                text: 'Adding new category failed!',
             });
             return;
         }
@@ -87,12 +87,12 @@ const Category = () => {
                 });
                 refreshCategoryTable();
                 swtoast.success({
-                    text: 'Thêm danh mục mới thành công!',
+                    text: 'New category added successfully!',
                 });
             } catch (e) {
                 console.log(e);
                 swtoast.error({
-                    text: 'Xảy ra lỗi khi thêm danh mục mới vui lòng thử lại!',
+                    text: 'Error adding new category please try again!',
                 });
             }
         }
@@ -100,13 +100,13 @@ const Category = () => {
 
     return (
         <div className="catalog-management-item">
-            <Heading title="Tất cả danh mục" />
+            <Heading title="All categories" />
             <div className="create-btn-container">
                 <button className="btn btn-dark btn-sm" onClick={handleCreateCategoryLevel1}>
-                    Tạo danh mục level 1
+                Create level 1 category
                 </button>
                 <button className="btn btn-dark btn-sm" onClick={() => setIsModalOpen(true)}>
-                    Tạo danh mục level 2
+                Create level 2 category
                 </button>
             </div>
             <div className="table-container" style={{ height: '520px' }}>
@@ -114,10 +114,10 @@ const Category = () => {
                     <thead>
                         <tr>
                             <th className="text-center">STT</th>
-                            <th>Tên danh mục</th>
+                            <th>Category Name</th>
                             <th>Level</th>
-                            <th>Danh mục cha</th>
-                            <th title="Trạng thái" className="col-state">Trạng thái</th>
+                            <th>Parent Category</th>
+                            <th title="Trạng thái" className="col-state">Status</th>
                         </tr>
                     </thead>
                     <tbody>

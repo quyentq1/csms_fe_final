@@ -67,7 +67,7 @@ const UpdateProductPage = () => {
                 let result = await axios.put(`${homeAPI}/coupon/update`, updateCoupon);
                 console.log(result.data);
                 setIsLoading(false)
-                swtoast.success({ text: 'Cập nhập sản phẩm thành công!' })
+                swtoast.success({ text: 'Product update successful!' })
                 refreshPage()
                 na
             } catch (err) {
@@ -79,11 +79,11 @@ const UpdateProductPage = () => {
 
     const Validate = () => {
         if (!code) {
-            swtoast.error({ text: 'Mã giảm giá không được bỏ trống' })
+            swtoast.error({ text: 'Coupon code cannot be left blank' })
             return false
         }
         if (!money) {
-            swtoast.error({ text: 'Tiền không được bỏ trống' })
+            swtoast.error({ text: 'Money cannot be left blank' })
             return false
         }
         return true
@@ -93,14 +93,14 @@ const UpdateProductPage = () => {
 
     return (
         <div className='update-product-page'>
-            <Header title="Cập nhật sản phẩm" />
+            <Header title="Update discount code" />
             <div className="update-product-form">
                 {/* // Input Ten san pham */}
                 <div className="row">
                     <div className="col-6">
-                        <label htmlFor='product-code' className="fw-bold">Tên mã giảm giá:</label>
+                        <label htmlFor='product-code' className="fw-bold">Coupon code name:</label>
                         <Input
-                            id='product-code' placeholder='Nhập Tên mã giảm giá'
+                            id='product-code' placeholder='Enter Coupon Code Name'
                             value={code}
                             onChange={(e) => setCode(e.target.value)}
                         />
@@ -108,10 +108,10 @@ const UpdateProductPage = () => {
                 </div>
                 <div className="row">
                     <div className="col-6">
-                        <label htmlFor='product-money' className="fw-bold">Giá mã giảm giá:</label>
+                        <label htmlFor='product-money' className="fw-bold">Discount code price:</label>
                         <br />
                         <InputNumber
-                            id='product-money' placeholder='Nhập Giá mã giảm giá'
+                            id='product-money' placeholder='Enter Discount Code Price'
                             value={money === 0 ? null : money}
                             style={{ width: '100%' }}
                             onChange={setMoney}
@@ -121,7 +121,7 @@ const UpdateProductPage = () => {
              
                 <div className="btn-box text-left">
                     <button className='text-light bg-dark' onClick={updateCoupon}>
-                        Cập nhật
+                    Update
                     </button>
                 </div>
             </div>

@@ -44,6 +44,7 @@ const Login = (props) => {
                 text: 'Đăng nhập tài khoản thành công!'
             });
             props.toClose();
+            window.location.reload();
         } catch (error) {
             swtoast.error({
                 text: error.response?.data?.message

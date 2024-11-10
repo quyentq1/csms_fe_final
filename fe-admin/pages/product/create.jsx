@@ -97,7 +97,7 @@ const CreateProductPage = () => {
                     console.log(result.data);
                 }
                 setIsLoading(false)
-                swtoast.success({ text: 'Thêm sản phẩm thành công!' })
+                swtoast.success({ text: 'Product added successfully!' })
                 clearPage()
             } catch (err) {
                 console.log(err);
@@ -107,32 +107,32 @@ const CreateProductPage = () => {
 
     const Validate = () => {
         if (!productName) {
-            swtoast.error({ text: 'Tên sản phẩm không được bỏ trống' })
+            swtoast.error({ text: 'Product name cannot be left blank' })
             return false
         }
         if (!categoryId) {
-            swtoast.error({ text: 'Danh mục sản phẩm không được bỏ trống' })
+            swtoast.error({ text: 'Product category cannot be left blank' })
             return false
         }
         if (!price) {
-            swtoast.error({ text: 'Giá sản phẩm không được bỏ trống' })
+            swtoast.error({ text: 'Product price cannot be left blank' })
             return false
         }
         if (!description) {
-            swtoast.error({ text: 'Mô tả sản phẩm không được bỏ trống' })
+            swtoast.error({ text: 'Product description cannot be left blank' })
             return false
         }
         if (!productVariantList.length) {
-            swtoast.error({ text: 'Sản phẩm phải có ít nhất 1 biến thể' })
+            swtoast.error({ text: 'Product must have at least 1 variation' })
             return false
         }
         for (const productVariant of productVariantList) {
             if (!productVariant.quantity) {
-                swtoast.error({ text: 'Biến thể sản phẩm phải có ít nhất một tồn kho' })
+                swtoast.error({ text: 'Product variants must have at least one inventory' })
                 return false
             }
             if (!productVariant.fileList.length) {
-                swtoast.error({ text: 'Biến thể sản phẩm phải có ít nhất một ảnh' })
+                swtoast.error({ text: 'Product variants must have at least one inventory' })
                 return false
             }
         }
@@ -154,14 +154,14 @@ const CreateProductPage = () => {
 
     return (
         <div className='create-product-page'>
-            <Header title="Thêm sản phẩm" />
+            <Header title="Add Products" />
             <div className="create-product-form">
                 {/* // Input Ten san pham */}
                 <div className="row">
                     <div className="col-6">
-                        <label htmlFor='product-name' className="fw-bold">Tên sản phẩm:</label>
+                        <label htmlFor='product-name' className="fw-bold">Product Name:</label>
                         <Input
-                            id='product-name' placeholder='Nhập tên sản phẩm'
+                            id='product-name' placeholder='Input Product Name'
                             value={productName}
                             onChange={(e) => setProductName(e.target.value)}
                         />
@@ -170,14 +170,14 @@ const CreateProductPage = () => {
                 {/* // Component danh muc */}
                 <div className="row">
                     <div className="col-6">
-                        <label htmlFor='product-category' className="fw-bold">Danh mục:</label>
+                        <label htmlFor='product-category' className="fw-bold">Category:</label>
                         <Category setCategoryId={setCategoryId} categoryName={categoryName} setCategoryName={setCategoryName} />
                     </div>
                     <div className="col-6">
-                        <label htmlFor='product-price' className="fw-bold">Giá sản phẩm:</label>
+                        <label htmlFor='product-price' className="fw-bold">Product price:</label>
                         <br />
                         <InputNumber
-                            id='product-price' placeholder='Nhập giá sản phẩm'
+                            id='product-price' placeholder='Input Product price'
                             value={price === 0 ? null : price}
                             style={{ width: '100%' }}
                             onChange={setPrice}
@@ -186,10 +186,10 @@ const CreateProductPage = () => {
                 </div>
                 {/* // Mo ta san pham = CKEditor */}
                 <div className="description">
-                    <label htmlFor='description' className="fw-bold">Mô tả sản phẩm:</label>
+                    <label htmlFor='description' className="fw-bold">Product Descriptions:</label>
                     <div className="ckeditor-box">
                         <CKeditor
-                            Placeholder={{ placeholder: "Mô tả ..." }}
+                            Placeholder={{ placeholder: "Descriptions ..." }}
                             name="description"
                             id="description"
                             form="add-product-form"
@@ -221,14 +221,14 @@ const CreateProductPage = () => {
                 </div>
                 {/* dung Selected colour va Seleted size de tao bang Product-Variant */}
                 <div>
-                    <label htmlFor='enter-name' className="fw-bold">Danh sách lựa chọn:</label>
+                    <label htmlFor='enter-name' className="fw-bold">Selection list:</label>
                     <table className="table w-100 table-hover align-middle table-bordered">
                         <thead>
                             <tr className='row-product-variant'>
-                                <th className='col-colour text-center' scope="col">Màu</th>
+                                <th className='col-colour text-center' scope="col">Color</th>
                                 <th className='col-size text-center' scope="col">Size</th>
-                                <th className='col-quantity text-center' scope="col">Tồn kho</th>
-                                <th className='col-image text-center' scope="col">Ảnh</th>
+                                <th className='col-quantity text-center' scope="col">Stock</th>
+                                <th className='col-image text-center' scope="col">Image</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -238,7 +238,7 @@ const CreateProductPage = () => {
                 </div>
                 <div className="btn-box text-left">
                     <button className='text-light bg-dark' onClick={createProduct}>
-                        Thêm sản phẩm
+                        Add Products
                     </button>
                 </div>
             </div>

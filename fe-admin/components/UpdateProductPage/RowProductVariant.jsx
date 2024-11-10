@@ -17,9 +17,9 @@ const RowProductVariant = ({ index, productVariantList, setProductVariantList, s
     const handleDelete = async () => {
         swalert
             .fire({
-                title: "Xóa biến thể sản phẩm",
+                title: "Delete product variation",
                 icon: "warning",
-                text: "Bạn muốn xóa biến thể sản phẩm này?",
+                text: "You want to delete this product variation?",
                 showCloseButton: true,
                 showCancelButton: true,
             })
@@ -30,12 +30,12 @@ const RowProductVariant = ({ index, productVariantList, setProductVariantList, s
                             { data: { product_variant_ids: [productVariantList[index].productVariantId] } })
                         refreshPage()
                         swtoast.success({
-                            text: 'Xóa biến thể sản phẩm thành công!'
+                            text: 'Product variation deleted successfully!'
                         })
                     } catch (err) {
                         console.log(err)
                         swtoast.error({
-                            text: 'Xảy ra lỗi khi xóa biến thể sản phẩm vui lòng thử lại!'
+                            text: 'An error occurred while deleting product variation please try again!'
                         })
                     }
                 }
@@ -66,7 +66,7 @@ const RowProductVariant = ({ index, productVariantList, setProductVariantList, s
                     />
                 </td>
                 <td className='col-delete text-center'>
-                    <FaTrash style={{ cursor: "pointer" }} title='Xóa' className="text-danger" onClick={() => handleDelete()} />
+                    <FaTrash style={{ cursor: "pointer" }} title='Delete' className="text-danger" onClick={() => handleDelete()} />
                 </td>
             </tr>
         </>

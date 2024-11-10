@@ -1,42 +1,49 @@
 export const menu = [
     {
-        title:'Thống Kê',
+        title:'Statistical',
         href: '/statistical/manage',
         list: [
 
         ],
     },
     {
-        title: 'Quản lý thành viên',
+        title: 'User Management',
         href: '/user/manage',
         list: [
 
         ],
     },
     {
-        title: 'Quản lý danh mục',
+        title: 'Category Management',
         href: '/catalog/manage',
         list: [
 
         ],
     },
     {
-        title: 'Quản lý sản phẩm',
+        title: 'Products Management',
         href: '/product/manage',
         list: [
 
         ],
     },
     {
-        title: 'Quản lý đơn hàng',
+        title: 'Orders Management',
         href: '/order/manage',
         list: [
 
         ],
     },
     {
-        title: 'Quản lý mã giảm giá',
+        title: 'Counpon Management',
         href: '/coupon/manage',
+        list: [
+
+        ],
+    },
+    {
+        title: 'Message Management',
+        href: '/chat/manage',
         list: [
 
         ],

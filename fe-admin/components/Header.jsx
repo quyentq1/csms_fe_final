@@ -37,7 +37,7 @@ const Header = (props) => {
                         style={{ backgroundColor: '#000' }}
                         onClick={handleLogOut}
                     >
-                        Đăng xuất
+                        Log out
                     </Button>
                 </div>
             </div>

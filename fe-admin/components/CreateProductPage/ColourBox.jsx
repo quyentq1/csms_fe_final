@@ -52,14 +52,14 @@ const ColourBox = ({ selectedColours, setSelectedColours, colourBoxValue, setCol
 
     return (
         <div>
-            <label htmlFor="enter-color" className="fw-bold">Màu:</label>
+            <label htmlFor="enter-color" className="fw-bold">Color:</label>
             <Select
                 id='enter-color'
                 mode="multiple"
                 value={colourBoxValue}
                 style={{ width: '100%' }}
                 placement='bottomLeft'
-                placeholder="Chọn màu"
+                placeholder="Pick Color"
                 onSelect={handleOnSelect}
                 onDeselect={handleOnDeselect}
                 options={options}

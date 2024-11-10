@@ -12,9 +12,9 @@ const UserAdmin = (props) => {
     const handleDelete = async () => {
         swalert
             .fire({
-                title: "Xóa User",
+                title: "Delete User",
                 icon: "warning",
-                text: "Bạn muốn xóa User này?",
+                text: "Do you want to delete this User?",
                 showCloseButton: true,
                 showCancelButton: true,
             })
@@ -25,12 +25,12 @@ const UserAdmin = (props) => {
                             { data: { customer_info_id: [props.customer_info_id] } })
                         props.refreshUserTable()
                         swtoast.success({
-                            text: 'Xóa User thành công!'
+                            text: 'Delete User Successfully!'
                         })
                     } catch (err) {
                         console.log(err)
                         swtoast.error({
-                            text: 'Xảy ra lỗi khi xóa Coupon vui lòng thử lại!'
+                            text: 'Error occurred while deleting Coupon please try again!'
                         })
                     }
                 }
@@ -57,12 +57,12 @@ const UserAdmin = (props) => {
             </td>
             <td className="col-action manipulation">
                 <Link href={`/user/update/${props.customer_info_id}`}>
-                    Chỉnh sửa
+                    Edit
                 </Link>
                 <br />
                 <FaTrash 
                     style={{ cursor: "pointer" }} 
-                    title='Xóa' 
+                    title='Delete' 
                     className="text-danger" 
                     onClick={() => handleDelete()} 
                 />

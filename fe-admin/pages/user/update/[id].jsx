@@ -72,7 +72,7 @@ const UpdateUserPage = () => {
                 let result = await axios.put(`${homeAPI}/user/update`, updateCoupon);
                 console.log(result.data);
                 setIsLoading(false)
-                swtoast.success({ text: 'Cập nhập sản phẩm thành công!' })
+                swtoast.success({ text: 'Update User success!' })
                 refreshPage()
             } catch (err) {
                 console.log(err);
@@ -83,7 +83,7 @@ const UpdateUserPage = () => {
 
     const Validate = () => {
         if (!customername) {
-            swtoast.error({ text: 'Tên khách hàng không được bỏ trống' })
+            swtoast.error({ text: 'Customer name cannot be left blank' })
             return false
         }
         return true
@@ -93,22 +93,22 @@ const UpdateUserPage = () => {
 
     return (
         <div className='update-product-page'>
-            <Header title="Cập nhật sản phẩm" />
+            <Header title="Update Customer" />
             <div className="update-product-form">
                 {/* // Input Ten san pham */}
                 <div className="row">
                     <div className="col-6">
-                        <label htmlFor='product-customername' className="fw-bold">Tên khách hàng:</label>
+                        <label htmlFor='product-customername' className="fw-bold">Customer Name:</label>
                         <Input
-                            id='product-code' placeholder='Nhập Tên khách hàng'
+                            id='product-code' placeholder='Customer Name'
                             value={customername}
                             onChange={(e) => setcCustomerName(e.target.value)}
                         />
                     </div>
                     <div className="col-6">
-                        <label htmlFor='product-money' className="fw-bold">Số điện thoại:</label>
+                        <label htmlFor='product-money' className="fw-bold">Phone:</label>
                         <InputNumber
-                            id='product-money' placeholder='Nhập Số điện thoại'
+                            id='product-money' placeholder='Phone'
                             value={phone === 0 ? null : phone}
                             style={{ width: '100%' }}
                             onChange={setPhone}
@@ -117,18 +117,18 @@ const UpdateUserPage = () => {
                 </div>
                 <div className="row">
                     <div className="col-6">
-                        <label htmlFor='product-address' className="fw-bold">Địa chỉ:</label>
+                        <label htmlFor='product-address' className="fw-bold">Address:</label>
                         <InputNumber
-                            id='product-address' placeholder='Nhập Địa chỉ'
+                            id='product-address' placeholder='Address'
                             value={address === 0 ? null : address}
                             style={{ width: '100%' }}
                             onChange={setAddress}
                         />
                     </div>
                     <div className="col-6">
-                        <label htmlFor='product-address' className="fw-bold">Điểm</label>
+                        <label htmlFor='product-address' className="fw-bold">Loyalty Point</label>
                         <InputNumber
-                            id='product-point' placeholder='Nhập Điểm'
+                            id='product-point' placeholder='Input Points'
                             value={point === 0 ? null : point}
                             style={{ width: '100%' }}
                             onChange={setPoint}
@@ -138,7 +138,7 @@ const UpdateUserPage = () => {
              
                 <div className="btn-box text-left">
                     <button className='text-light bg-dark' onClick={updateCoupon}>
-                        Cập nhật
+                        Update
                     </button>
                 </div>
             </div>

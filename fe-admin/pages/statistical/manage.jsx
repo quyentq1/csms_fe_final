@@ -43,7 +43,7 @@ const StatisticalManagementPage = () => {
     const chartTotalProduct = () => {
         const config = {
             data: [
-              { type: 'Sản phẩm', value: listTotalProduct },
+              { type: 'Product', value: listTotalProduct },
             ],
             angleField: 'value',
             colorField: '#4699CD',
@@ -52,7 +52,7 @@ const StatisticalManagementPage = () => {
               {
                 type: 'text',
                 style: {
-                  text: 'Tât cả sản phẩm',
+                  text: 'All Product',
                   x: '50%',
                   y: '50%',
                   textAlign: 'center',
@@ -67,7 +67,7 @@ const StatisticalManagementPage = () => {
     const chartTotalUser = () => {
         const config = {
             data: [
-              { type: 'Khách hàng', value: listTotalUser },
+              { type: 'Customer', value: listTotalUser },
             ],
             angleField: 'value',
             colorField: '#B12A0C',
@@ -76,7 +76,7 @@ const StatisticalManagementPage = () => {
               {
                 type: 'text',
                 style: {
-                  text: 'Tât cả khách hàng',
+                  text: 'All Customer',
                   x: '50%',
                   y: '50%',
                   textAlign: 'center',
@@ -140,23 +140,23 @@ const StatisticalManagementPage = () => {
 
     return (
         <div className="product-manager">
-            <Header title="Thống Kê" />
+            <Header title="Statistical" />
             <div className="wrapper manager-box">
                 <div className="row">
                     <div className="col-6" style={{ height: '200px' }}>
-                        <Heading title="Tổng sản phẩm" />
+                        <Heading title="All Products" />
                         <Pie {...chartTotalProduct()} />
                     </div>
                     <div className="col-6" style={{ height: '200px' }}>
-                        <Heading title="Tổng Khách hàng" />
+                        <Heading title="All Customer" />
                         <Pie {...chartTotalUser()} />
                     </div>
                     <div className="col-6 pt-5"  style={{ height: '300px' }}>
-                        <Heading title="Đơn Hàng  theo ngày" />
+                        <Heading title="Order by date" />
                         <Line {...chartTotalPrice()} />
                     </div>
                     <div className="col-6 pt-5"  style={{ height: '300px' }}>
-                        <Heading title="Tổng tiền theo ngày" />
+                        <Heading title="Daily Profit" />
                         <Line {...chartTotalRevenuePerDay()} />
                     </div>
                 </div>

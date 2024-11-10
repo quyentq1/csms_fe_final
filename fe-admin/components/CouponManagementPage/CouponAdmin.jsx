@@ -42,7 +42,7 @@ const CouponAdmin = (props) => {
                 console.log(e)
                 props.refreshCouponTable()
                 setDisabledInputState(false)
-                swtoast.error({ text: 'Xảy ra lỗi khi mở bán vui lòng thử lại!' })
+                swtoast.error({ text: 'An error occurred while opening the sale, please try again.!' })
             }
         } else {
             try {
@@ -55,7 +55,7 @@ const CouponAdmin = (props) => {
                 console.log(e)
                 props.refreshCouponTable()
                 setDisabledInputState(false)
-                swtoast.error({ text: 'Xảy ra lỗi khi tắt sản phẩm vui lòng thử lại!' })
+                swtoast.error({ text: 'An error occurred while shutting down the product, please try again!' })
             }
         }
     };
@@ -63,9 +63,9 @@ const CouponAdmin = (props) => {
     const handleDelete = async () => {
         swalert
             .fire({
-                title: "Xóa Coupon",
+                title: "Delete Coupon",
                 icon: "warning",
-                text: "Bạn muốn xóa Coupon này?",
+                text: "You want to delete this Coupon?",
                 showCloseButton: true,
                 showCancelButton: true,
             })
@@ -76,12 +76,12 @@ const CouponAdmin = (props) => {
                             { data: { id: [props.id] } })
                         props.refreshCouponTable()
                         swtoast.success({
-                            text: 'Xóa Coupon thành công!'
+                            text: 'Coupon deleted successfully!'
                         })
                     } catch (err) {
                         console.log(err)
                         swtoast.error({
-                            text: 'Xảy ra lỗi khi xóa Coupon vui lòng thử lại!'
+                            text: 'Error occurred while deleting Coupon please try again!'
                         })
                     }
                 }
@@ -89,10 +89,7 @@ const CouponAdmin = (props) => {
     }
 
     return (
-        <div className="table-responsive">
-            <table className="table align-middle product-admin w-100">
-                <tbody className='w-100 text-center'>
-                    <tr className="w-100">
+                    <tr className="text-center">
                         <td className='col-infor-product'>
                             <p className="name">
                                 {props.code}
@@ -111,15 +108,12 @@ const CouponAdmin = (props) => {
                         </td>
                         <td className="col-action manipulation">
                             <Link href={`/coupon/update/${props.id}`}>
-                                Chỉnh sửa
+                                Edit
                             </Link>
                             <br />
-                            <FaTrash style={{ cursor: "pointer" }} title='Xóa' className="text-danger" onClick={() => handleDelete()} />
+                            <FaTrash style={{ cursor: "pointer" }} title='Delete' className="text-danger" onClick={() => handleDelete()} />
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
     )
 }
 

@@ -32,7 +32,7 @@ const OrderRow = (props) => {
             return (
                 <>
                     <br />
-                    <a className="text-danger" href="#" onClick={handleCancelOrder}>Hủy đơn hàng</a>
+                    <a className="text-danger" href="#" onClick={handleCancelOrder}>Cancel order</a>
                 </>
             )
         }
@@ -42,7 +42,7 @@ const OrderRow = (props) => {
         if (state_id == 1) {
             return (
                 <>
-                    <a href="#" onClick={handleChangeStatus}>Xác nhận đơn hàng</a>
+                    <a href="#" onClick={handleChangeStatus}>Order Confirmation</a>
                     <br />
                 </>
             )
@@ -50,7 +50,7 @@ const OrderRow = (props) => {
         if (state_id == 2) {
             return (
                 <>
-                    <a href="#" onClick={handleChangeStatus}>Xác nhận đã bàn giao cho đơn vị vận chuyển</a>
+                    <a href="#" onClick={handleChangeStatus}>Confirmation of delivery to the carrier</a>
                     <br />
                 </>
             )
@@ -58,7 +58,7 @@ const OrderRow = (props) => {
         if (state_id == 3) {
             return (
                 <>
-                    <a href="#" onClick={handleChangeStatus}>Xác nhận đã giao hàng thành công</a>
+                    <a href="#" onClick={handleChangeStatus}>Confirm successful delivery</a>
                     <br />
                 </>
             )
@@ -68,9 +68,9 @@ const OrderRow = (props) => {
     const handleCancelOrder = () => {
         swalert
             .fire({
-                title: "Hủy đơn hàng",
+                title: "Cancel Order",
                 icon: "warning",
-                text: "Bạn muốn hủy đơn hàng này?",
+                text: "You want to cancel this order?",
                 showCloseButton: true,
                 showCancelButton: true,
             })
@@ -80,12 +80,12 @@ const OrderRow = (props) => {
                         await axios.put('https://www.backend.csms.io.vn/api/order/change-status/' + order_id + '/6')
                         refreshOrderTable();
                         swtoast.success({
-                            text: 'Hủy đơn hàng thành công!'
+                            text: 'Order Cancellation Successful!'
                         })
                     } catch (err) {
                         console.log(err)
                         swtoast.error({
-                            text: 'Xảy ra lỗi khi hủy đơn hàng vui lòng thử lại!'
+                            text: 'Error occurred while canceling order please try again!'
                         })
                     }
                 }
@@ -96,9 +96,9 @@ const OrderRow = (props) => {
         if (state_id == 1) {
             swalert
                 .fire({
-                    title: "Xác nhận đơn hàng",
+                    title: "Order Confirmation",
                     icon: "info",
-                    text: "Bạn muốn tiếp nhận đơn hàng này?",
+                    text: "You want to accept this order?",
                     showCloseButton: true,
                     showCancelButton: true,
                 })
@@ -108,12 +108,12 @@ const OrderRow = (props) => {
                             await axios.put('https://www.backend.csms.io.vn/api/order/change-status/' + order_id + '/2')
                             refreshOrderTable();
                             swtoast.success({
-                                text: 'Xác nhận đơn hàng thành công!'
+                                text: 'Order Confirmation Successful!'
                             })
                         } catch (err) {
                             console.log(err)
                             swtoast.error({
-                                text: 'Xảy ra lỗi khi xác nhận đơn hàng vui lòng thử lại!'
+                                text: 'Error occurred while confirming order please try again!'
                             })
                         }
                     }
@@ -122,9 +122,9 @@ const OrderRow = (props) => {
         if (state_id == 2) {
             swalert
                 .fire({
-                    title: "Xác nhận đã bàn giao cho đơn vị vận chuyển",
+                    title: "Confirmation of delivery to the carrier",
                     icon: "info",
-                    text: "Đơn hàng này đã được bàn giao cho đơn vị vận chuyển?",
+                    text: "This order has been handed over to the carrier?",
                     showCloseButton: true,
                     showCancelButton: true,
                 })
@@ -134,12 +134,12 @@ const OrderRow = (props) => {
                             await axios.put('https://www.backend.csms.io.vn/api/order/change-status/' + order_id + '/3')
                             refreshOrderTable();
                             swtoast.success({
-                                text: 'Xác nhận bàn giao cho đơn vị vận chuyển thành công!'
+                                text: 'Confirm successful handover to the shipping unit!'
                             })
                         } catch (err) {
                             console.log(err)
                             swtoast.error({
-                                text: 'Xảy ra lỗi khi xác nhận bàn giao vui lòng thử lại!'
+                                text: 'Error occurred while confirming delivery, please try again!'
                             })
                         }
                     }
@@ -148,9 +148,9 @@ const OrderRow = (props) => {
         if (state_id == 3) {
             swalert
                 .fire({
-                    title: "Xác nhận đã giao hàng thành công",
+                    title: "Confirm successful delivery",
                     icon: "info",
-                    text: "Đơn hàng này đã được giao thành công?",
+                    text: "This order has been delivered successfully?",
                     showCloseButton: true,
                     showCancelButton: true,
                 })
@@ -160,12 +160,12 @@ const OrderRow = (props) => {
                             await axios.put('https://www.backend.csms.io.vn/api/order/change-status/' + order_id + '/4')
                             refreshOrderTable();
                             swtoast.success({
-                                text: 'Xác nhận đã giao thành công!'
+                                text: 'Confirm successful delivery!'
                             })
                         } catch (err) {
                             console.log(err)
                             swtoast.error({
-                                text: 'Xảy ra lỗi khi xác nhận đã giao vui lòng thử lại!'
+                                text: 'Error occurred while confirming delivery please try again!'
                             })
                         }
                     }
@@ -200,7 +200,7 @@ const OrderRow = (props) => {
                         </td>
                         <td className="col-action manipulation">
                             {renderChangeStatusBtn()}
-                            <Link href={`/order/detail/${order_id}`}>Xem chi tiết</Link>
+                            <Link href={`/order/detail/${order_id}`}>View Details Orders</Link>
                             {renderCancelOrderBtn()}
                         </td>
                     </tr>

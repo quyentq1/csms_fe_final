@@ -5,17 +5,6 @@ import { swtoast } from '@/mixins/swal.mixin'
 
 import { homeAPI } from '@/config'
 
-// const fakeCategoryList = [
-//     {
-//         category_id: 1,
-//         title: 'Áo Nam',
-//     },
-//     {
-//         category_id: 2,
-//         title: 'Quần Nam',
-//     },
-// ]
-
 const CreateCategoryModal = ({ isModalOpen, setIsModalOpen }) => {
 
     const [parentId, setParentId] = useState('')
@@ -29,7 +18,6 @@ const CreateCategoryModal = ({ isModalOpen, setIsModalOpen }) => {
                 convertCategoryList(result.data)
             } catch (err) {
                 console.log(err)
-                // convertCategoryList(fakeCategoryList)
             }
         }
         getCategoryList()
@@ -51,11 +39,11 @@ const CreateCategoryModal = ({ isModalOpen, setIsModalOpen }) => {
             try {
                 await axios.post(homeAPI + '/category/create-level2', newCategoryLevel2)
                 swtoast.success({
-                    text: 'Thêm thêm danh mục mới thành công!'
+                    text: 'Added new category successfully!'
                 })
             } catch (err) {
                 console.log(err)
-                swtoast.error({ text: 'Xảy ra lỗi khi thêm danh mục mới vui lòng thử lại!' })
+                swtoast.error({ text: 'Error adding new category please try again!' })
             }
             setIsModalOpen(false)
         }
@@ -63,11 +51,11 @@ const CreateCategoryModal = ({ isModalOpen, setIsModalOpen }) => {
 
     const Validate = () => {
         if (!parentId) {
-            swtoast.error({ text: 'Danh mục cha không được để trống!' })
+            swtoast.error({ text: 'Parent category cannot be empty!' })
             return false
         }
         if (!title) {
-            swtoast.error({ text: 'Tên danh mục không được để trống!' })
+            swtoast.error({ text: 'Category name cannot be blank!' })
             return false
         }
         return true
@@ -88,18 +76,18 @@ const CreateCategoryModal = ({ isModalOpen, setIsModalOpen }) => {
                 </div>
             ]}
         >
-            <h3 className='text-center'>Tạo danh mục level 2</h3>
-            <label htmlFor="parent-id">Danh mục cha: </label>
+            <h3 className='text-center'>Create level 2 category</h3>
+            <label htmlFor="parent-id">Parent category: </label>
             <Select
                 id='parent-id'
-                placeholder={'Chọn danh mục cha'}
+                placeholder={'Select parent category'}
                 style={{ width: '100%' }}
                 options={options}
                 onChange={setParentId}
             />
-            <label htmlFor="title">Tên danh mục: </label>
+            <label htmlFor="title">Category name: </label>
             <Input
-                id='title' placeholder='Nhập tên danh mục'
+                id='title' placeholder='Enter category name'
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />

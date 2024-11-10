@@ -72,18 +72,18 @@ const CouponManagementPage = () => {
 
   return (
     <div className="product-manager">
-      <Header title="Quản lý mã giảm giá" />
+      <Header title="Manage coupon codes" />
       <div className="wrapper manager-box">
         <div className="to-add-product-page">
           <button onClick={() => Router.push('/coupon/create')} className="to-add-product-page-btn">
-            Thêm mã giảm giá
+          Add discount code
           </button>
         </div>
-        <Heading title="Tất cả mã giảm giá" />
+        <Heading title="All coupon codes" />
         <div className="search-box">
           <input
             type="text"
-            placeholder="Tìm kiếm mã giảm giá..."
+            placeholder="Find a coupon code..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -93,50 +93,54 @@ const CouponManagementPage = () => {
             <thead className="w-100 align-middle text-center">
               <tr className="fs-6 w-100">
                 <th
-                  title="Tên mã giảm giá"
+                  title="Coupon code name"
                   className="name col-infor-product"
                   onClick={() => handleSort('code')}
+                  style={{ width: '15%' }}
                 >
-                  mã giảm giá
+                  Discount code
                   {sortColumn === 'code' && (
                     <span>{sortDirection === 'asc' ? <CaretUpOutlined /> : <CaretDownOutlined />}</span>
                   )}
                 </th>
                 <th
-                  title="Tiền"
+                  title="Money"
                   className="col-money"
                   onClick={() => handleSort('money')}
+                  style={{ width: '20%' }}
                 >
-                  Giá
+                  Price
                   {sortColumn === 'money' && (
                     <span>{sortDirection === 'asc' ? <CaretUpOutlined /> : <CaretDownOutlined />}</span>
                   )}
                 </th>
                 <th
-                  title="Thời gian tạo"
+                  title="Creation time"
                   className="col-createAt"
                   onClick={() => handleSort('created_at')}
+                  style={{ width: '20%' }}
                 >
-                  Ngày tạo
+                  Date created
                   {sortColumn === 'created_at' && (
                     <span>{sortDirection === 'asc' ? <CaretUpOutlined /> : <CaretDownOutlined />}</span>
                   )}
                 </th>
                 <th
-                  title="Trạng thái"
+                  title="Status"
                   onClick={() => handleSort('status')}
+                  style={{ width: '20%' }}
                 >
-                  Trạng thái
+                  Status
                   {sortColumn === 'status' && (
                     <span>{sortDirection === 'asc' ? <CaretUpOutlined /> : <CaretDownOutlined />}</span>
                   )}
                 </th>
-                <th title="Thao tác" className="col-action manipulation">
-                  Thao tác
+                <th title="Operation" className="col-action manipulation" style={{ width: '20%' }}>
+                Operation
                 </th>
               </tr>
             </thead>
-          </table>
+          <tbody>
           {sortAndFilterData().length ? (
             sortAndFilterData().map((productVariant, index) => {
               return (
@@ -152,19 +156,14 @@ const CouponManagementPage = () => {
               );
             })
           ) : (
-            <table
-              className="table w-100 table-hover align-middle table-bordered"
-              style={{ height: '400px' }}
-            >
-              <tbody>
                 <tr>
                   <td colSpan={6}>
                     <Empty />
                   </td>
                 </tr>
-              </tbody>
-            </table>
           )}
+          </tbody>
+          </table>
         </div>
       </div>
     </div>

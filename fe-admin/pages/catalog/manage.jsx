@@ -9,7 +9,7 @@ const CatalogManagementPage = () => {
 
     return (
         <div className='catalog-management-page'>
-            <Header title="Quản lý danh mục" />
+            <Header title="Category Management" />
             <div className="row">
                 <div className="col-8">
                     <CategoryManagement />

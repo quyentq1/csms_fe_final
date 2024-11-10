@@ -45,19 +45,19 @@ const UploadImageBox = ({ index, productVariantList, setProductVariantList }) =>
         // Kiểm tra file là hình ảnh
         const isImage = file.type.startsWith('image/');
         if (!isImage) {
-            message.error('Bạn chỉ có thể upload file hình ảnh!');
+            message.error('You can only upload image files!');
         }
         // Kiểm tra kích thước file nếu cần
         const isLt5M = file.size / 1024 / 1024 < 5;
         if (!isLt5M) {
-            message.error('Kích thước hình ảnh phải nhỏ hơn 5MB!');
+            message.error('Image size must be less than 5MB!');
         }
         return isImage && isLt5M;
     };
 
     const uploadButton = (
         <div>
-            <span>Thêm</span>
+            <span>Add</span>
             <div style={{ marginTop: 8 }}>
                 Upload
             </div>

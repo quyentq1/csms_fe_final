@@ -33,25 +33,36 @@ const LoginPage = () => {
             emailRef.current.focus();
             return;
         }
-
+    
         if (!password) {
             swtoast.fire({ text: 'Please enter your password' });
             passwordRef.current.focus();
             return;
         }
-
+    
         try {
             const response = await axios.post(homeAPI + '/admin/login', {
                 email: email,
                 password: password
             });
-
+    
+            const { role_id } = response.data;
+    
+            // Lưu thông tin đăng nhập vào store, bao gồm cả role_id
             setAdminLogin(response.data);
-
+    
             setEmail('');
             setPassword('');
             swtoast.success({ text: 'Đăng nhập thành công' });
-            Router.push('/');
+    
+            // Điều hướng dựa trên role_id
+            if (role_id === 1) {
+                Router.push('/admin/dashboard');  // Admin vào trang quản trị
+            } else if (role_id === 3) {
+                Router.push('/staff/dashboard');  // Staff vào trang dành cho nhân viên
+            } else {
+                Router.push('/');  // Redirect về trang mặc định nếu role_id không khớp
+            }
         } catch (error) {
             swtoast.error({
                 text: 'Email or Password is wrong!'

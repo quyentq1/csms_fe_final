@@ -9,8 +9,8 @@ const swToastInstance = Swal.mixin({
 });
 
 export const swalert = Swal.mixin({
-	confirmButtonText: "<i class='fas fa-check'></i> Chấp nhận",
-	cancelButtonText: "<i class='fas fa-xmark'></i> Hủy bỏ",
+	confirmButtonText: "<i class='fas fa-check'></i> Accept",
+	cancelButtonText: "<i class='fas fa-xmark'></i> Cancel",
 });
 
 export const swtoast = {

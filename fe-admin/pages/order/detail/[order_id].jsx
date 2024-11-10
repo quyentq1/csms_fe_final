@@ -36,24 +36,24 @@ const OrderDetailPage = () => {
 			<Header />
 			<div className="header-order-detail-page">
 				<p className="fw-bold" style={{ fontSize: "20px" }}>
-					Đơn hàng #{orderDetail.order_id}
+				Order #{orderDetail.order_id}
 				</p>
 				<p className="">
-					Ngày đặt hàng {formatTime(orderDetail.created_at)}
+				Order date {formatTime(orderDetail.created_at)}
 				</p>
 			</div>
 			<div className="container-order-detail-page">
 				<div>
-					<p className="fw-bold heading-detail-page">Danh sách sản phẩm</p>
+					<p className="fw-bold heading-detail-page">Product List</p>
 				</div>
 				<div>
 					<table className='table table-light table-bordered'>
 						<thead>
 							<tr>
-								<th>Sản phẩm</th>
-								<th>Giá</th>
-								<th>Số lượng</th>
-								<th>Tạm tính</th>
+								<th>Product</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Provisional</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,23 +72,23 @@ const OrderDetailPage = () => {
 						</tbody>
 						<tfoot>
 							<tr className=''>
-								<td colSpan="3" className=''>Tổng giá trị sản phẩm</td>
+								<td colSpan="3" className=''>Total product value</td>
 								<td colSpan="1">{orderDetail.total_product_value} đ</td>
 							</tr>
 							<tr className=''>
-								<td colSpan="3" className=''>Phí giao hàng</td>
+								<td colSpan="3" className=''>Shipping fee</td>
 								<td colSpan="1">{orderDetail.delivery_charges} đ</td>
 							</tr>
 							<tr className=''>
-								<td colSpan="3" className=''>Phương thức thanh toán</td>
+								<td colSpan="3" className=''>Payment method</td>
 								<td colSpan="1">{orderDetail.methodpayment}</td>
 							</tr>
 							<tr className=''>
-								<td colSpan="3" className=''>Đơn vị vận chuyển</td>
+								<td colSpan="3" className=''>Shipping unit</td>
 								<td colSpan="1">{orderDetail.shipping}</td>
 							</tr>
 							<tr className='total fw-bold'>
-								<td colSpan="3" className=''>Tổng thanh toán</td>
+								<td colSpan="3" className=''>Total payment</td>
 								<td colSpan="1">{orderDetail.total_order_value} đ</td>
 							</tr>
 						</tfoot>
@@ -99,7 +99,7 @@ const OrderDetailPage = () => {
 				<div className="row">
 					<div className="col-6">
 						<div>
-							<p className="fw-bold heading_order_histories">Lịch sử đơn hàng</p>
+							<p className="fw-bold heading_order_histories">Order history</p>
 						</div>
 						<div>
 							<ul>
@@ -117,14 +117,14 @@ const OrderDetailPage = () => {
 					</div>
 					<div className="col-6">
 						<div>
-							<p className="fw-bold heading-detail-page">Thông tin khách hàng</p>
+							<p className="fw-bold heading-detail-page">Customer information</p>
 						</div>
 						<div>
 							<table className=''>
 								<tbody>
 									<tr className='row'>
 										<td className="col-4">
-											Họ tên
+											FullName
 										</td>
 										<td className="col-8 fw-bold d-flex justify-content-end text-end">
 											{orderDetail.customer_name}
@@ -140,7 +140,7 @@ const OrderDetailPage = () => {
 									</tr>
 									<tr className='row'>
 										<td className="col-4">
-											Số điện thoại
+											Phone
 										</td>
 										<td className="col-8 fw-bold d-flex justify-content-end text-end">
 											{orderDetail.phone_number}
@@ -148,7 +148,7 @@ const OrderDetailPage = () => {
 									</tr>
 									<tr className='row'>
 										<td className="col-4">
-											Địa chỉ
+											Address
 										</td>
 										<td className="col-8 fw-bold d-flex justify-content-end text-end">
 											{orderDetail.address}
