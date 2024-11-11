@@ -63,7 +63,7 @@ const UpdateFeedbackModal = (props) => {
             centered={true}
         >
             <div className="modal-head">
-                <h5 className="text-center">Đánh giá của bạn</h5>
+                <h5 className="text-center">Your review</h5>
             </div>
             <div className="modal-body">
                 <div className="d-flex align-items-center">

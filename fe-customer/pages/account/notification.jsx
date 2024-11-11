@@ -43,7 +43,7 @@ const NotificationPage = () => {
                 <div className="col-8">
                     <div className="orders-tab">
                         <div className="title">
-                        Thông báo
+                        Notifications
                         </div>
                         <div className="orders-body">
                         {notificationList.map((item, index) => (

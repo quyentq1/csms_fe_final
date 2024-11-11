@@ -13,27 +13,27 @@ const Register = (props) => {
     const setCustomerLogin = useCustomerStore((state) => state.setCustomerLogin);
     const schema = object({
         fullName: string()
-            .trim()
-            .required('Vui lòng nhập Họ và tên của bạn')
-            .max(255, 'Họ và tên không được vượt quá 255 ký tự'),
+        .trim()
+        .required('Please enter your Full Name')
+        .max(255, 'Full Name must not exceed 255 characters'),
         phoneNumber: string()
-            .trim()
-            .required('Vui lòng nhập Số điện thoại của bạn')
-            .matches(/^\d{10}$/, 'Số điện thoại không hợp lệ'),
+        .trim()
+        .required('Please enter your Phone Number')
+        .matches(/^\d{10}$/, 'Invalid Phone Number'),
         email: string()
-            .trim()
-            .required('Vui lòng nhập Email của bạn')
-            .max(255, 'Email không được vượt quá 255 ký tự')
-            .email('Email không hợp lệ'),
+        .trim()
+        .required('Please enter your Email')
+        .max(255, 'Email must not exceed 255 characters')
+        .email('Invalid Email'),
         password: string()
-            .trim()
-            .required('Vui lòng nhập Mật khẩu của bạn')
-            .max(255, 'Mật khẩu không được vượt quá 255 ký tự'),
+        .trim()
+        .required('Please enter your Password')
+        .max(255, 'Password must not exceed 255 characters'),
         confirmPassword: string()
-            .trim()
-            .required('Vui lòng nhập Mật khẩu của bạn')
-            .oneOf([ref("password"), null], "Mật khẩu nhập lại không khớp")
-            .max(255, 'Mật khẩu không được vượt quá 255 ký tự'),
+        .trim()
+        .required('Please enter your Password')
+        .oneOf([ref("password"), null], "The password you re-entered does not match")
+        .max(255, 'Password cannot exceed 255 characters'),
     });
     const { control, handleSubmit, formState: { isSubmitting } } = useForm({
         defaultValues: {
@@ -62,7 +62,7 @@ const Register = (props) => {
             }
             setCustomerLogin(customerInfor);
             swtoast.success({
-                text: 'Đăng ký tài khoản thành công!'
+                text: 'Account registration successful!'
             });
             props.toClose();
         } catch (error) {
@@ -71,32 +71,72 @@ const Register = (props) => {
             });
         }
     }
-
     return (
-        <div className="user register w-100 position-absolute d-flex" onClick={props.toClose}>
-            <div
-                className="user-box position-relative register-box border-radius"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <div className="header-form position-absolute" onClick={props.toClose}>
+        <div className="login-container">
+            <div className="login-box" onClick={(e) => e.stopPropagation()}>
+                <div className="close-button" onClick={props.toClose}>
                     <FaTimes />
                 </div>
-                <form onSubmit={handleSubmit(handleRegister)} className="form-user form-register">
-                    <h3 className="heading text-center">Đăng ký tài khoản</h3>
-                    <div className="mb-3"><InputField name='fullName' control={control} placeholder={'Họ và tên'} /></div>
-                    <div className="mb-3"><InputField name='phoneNumber' control={control} placeholder={'Số điện thoại'} /></div>
-                    <div className="mb-3"><InputField name='email' control={control} placeholder={'Email'} /></div>
-                    <div className="mb-3"><InputField name='password' control={control} password placeholder={'Mật khẩu'} /></div>
-                    <div className="mb-3"><InputField name='confirmPassword' control={control} password placeholder={'Nhập lại mật khẩu'} /></div>
-                    <div className={'btn-container' + (isSubmitting ? ' btn-loading' : '')}>
-                        <Button htmlType='submit' loading={isSubmitting}>
-                            {!isSubmitting && 'Đăng ký'}
+    
+                <form onSubmit={handleSubmit(handleRegister)}>
+                    <h3 className="login-title">Sign up for an account</h3>
+                    
+                    <div className="form-group">
+                        <InputField 
+                            name='fullName' 
+                            control={control} 
+                            placeholder={'Full name'} 
+                        />
+                    </div>
+    
+                    <div className="form-group">
+                        <InputField 
+                            name='phoneNumber' 
+                            control={control} 
+                            placeholder={'Phone number'} 
+                        />
+                    </div>
+    
+                    <div className="form-group">
+                        <InputField 
+                            name='email' 
+                            control={control} 
+                            placeholder={'Email'} 
+                        />
+                    </div>
+    
+                    <div className="form-group">
+                        <InputField 
+                            name='password' 
+                            control={control} 
+                            password 
+                            placeholder={'Password'} 
+                        />
+                    </div>
+    
+                    <div className="form-group">
+                        <InputField 
+                            name='confirmPassword' 
+                            control={control} 
+                            password 
+                            placeholder={'Re-enter password'} 
+                        />
+                    </div>
+    
+                    <div className={`submit-button${isSubmitting ? ' loading' : ''}`}>
+                        <Button 
+                            htmlType='submit' 
+                            loading={isSubmitting}
+                            block
+                        >
+                            {!isSubmitting && 'Register'}
                         </Button>
                     </div>
                 </form>
-                <div className="footer-form d-flex justify-content-center">
-                    <a className="footer-form-item" href="#" onClick={props.toLogin}>
-                        Đăng nhập
+    
+                <div className="form-footer">
+                    <a href="#" onClick={props.toLogin}>
+                    Already have an account? Sign in
                     </a>
                 </div>
             </div>

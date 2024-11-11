@@ -33,33 +33,33 @@ const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', ad
 
     return (
         <form className="infor-tab" onSubmit={handleSubmit(handleUpdateCustomerInfor)}>
-            <div className="title">Thông tin tài khoản</div>
+            <div className="title">Account information</div>
             <div className="infor-tab-item col-12 row d-flex align-items-center">
-                <div className="col-3">Họ tên</div>
+                <div className="col-3">FullName</div>
                 <div className="col-7">
-                    <div className="mb-3"><InputField name='customerName' control={control} placeholder={'Họ và tên của bạn'} /></div>
+                    <div className="mb-3"><InputField name='customerName' control={control} placeholder={'your fullname'} /></div>
                 </div>
             </div>
             <div className="infor-tab-item col-12 row d-flex align-items-center">
                 <div className="col-3">Email</div>
                 <div className="col-7">
-                    <div className="mb-3"><InputField name='email' control={control} disabled placeholder={'Địa chỉ email'} /></div>
+                    <div className="mb-3"><InputField name='email' control={control} disabled placeholder={'email'} /></div>
                 </div>
             </div>
             <div className="infor-tab-item col-12 row d-flex align-items-center">
-                <div className="col-3">Số điện thoại</div>
+                <div className="col-3">Phone Number</div>
                 <div className="col-7">
-                    <div className="mb-3"><InputField name='phoneNumber' control={control} placeholder={'Số điện thoại'} /></div>
+                    <div className="mb-3"><InputField name='phoneNumber' control={control} placeholder={'your phone'} /></div>
                 </div>
             </div>
             <div className="infor-tab-item col-12 row d-flex align-items-center">
-                <div className="col-3">Địa chỉ</div>
+                <div className="col-3">Address</div>
                 <div className="col-7">
-                    <div className="mb-3"><InputField name='address' control={control} placeholder={'Địa chỉ (Ví dụ: 112/12 3/2 Hưng Lợi, Ninh Kiều)'} /></div>
+                    <div className="mb-3"><InputField name='address' control={control} placeholder={'Address (Example: 112/12 3/2 Hoa Quy, Da Nang City)'} /></div>
                 </div>
             </div>
             <div className="infor-tab-item col-12 row d-flex align-items-center">
-                <div className="col-3">Điểm tích lũy</div>
+                <div className="col-3">Loyalty Points</div>
                 <div className="col-7">
                     <div className="mb-3"><InputField name='point' disabled control={control} /></div>
                 </div>
@@ -68,7 +68,7 @@ const CustomerInforForm = ({ email = '', customerName = '', phoneNumber = '', ad
                 <div className="col-3">
                     <div className={'btn-container' + (isSubmitting ? ' btn-loading' : '')}>
                         <Button htmlType='submit' loading={isSubmitting}>
-                            {!isSubmitting && 'Cập nhật tài khoản'}
+                            {!isSubmitting && 'Update account'}
                         </Button>
                     </div>
                 </div>

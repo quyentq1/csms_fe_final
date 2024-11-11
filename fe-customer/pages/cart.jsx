@@ -39,6 +39,7 @@ const CartPage = () => {
             const listCouponData = data2.data;
             setlistCoupon(listCouponData);
         }
+        console.log("data2",data2);
         if(valuecoupon){
             const foundCoupon = listCoupon.find(item => item.code === valuecoupon);
             setMoneyDiscount(foundCoupon.money)
@@ -118,16 +119,16 @@ const CartPage = () => {
                 await orderService.placeOrder(order);
                 await submitCoupon();
                 clearCart();
-                swtoast.success({ text: 'Đặt hàng thành công' });
+                swtoast.success({ text: 'Order successful' });
             } catch (err) {
                 console.log(err);
                 swtoast.error({
-                    text: 'Có lỗi khi tạo đơn hàng vui lòng thử lại!'
+                    text: 'There was an error creating the order, please try again!'
                 });
             }
         } else {
             swtoast.error({
-                text: 'Chưa có sản phẩm trong giỏ hàng. Vui lòng thêm sản phẩm vào giỏ hàng.'
+                text: 'There are no products in the cart. Please add products to the cart.'
             });
         }
     }, [clearCart, productList, shippingcost, deliveryCharges, submitCoupon]);
@@ -154,16 +155,16 @@ const CartPage = () => {
                 };
                 await orderService.placeOrder(order);
                 clearCart();
-                swtoast.success({ text: 'Thanh toán Paypal thành công' });
+                swtoast.success({ text: 'Paypal payment successful' });
             } catch (err) {
                 console.log(err);
                 swtoast.error({
-                    text: 'Có lỗi khi tạo đơn hàng vui lòng thử lại!'
+                    text: 'There was an error creating the order, please try again!'
                 });
             }
         } else {
             swtoast.error({
-                text: 'Chưa có sản phẩm trong giỏ hàng. Vui lòng thêm sản phẩm vào giỏ hàng.'
+                text: 'There are no products in the cart. Please add products to the cart.'
             });
         }
     }, [clearCart, productList, shippingcost, deliveryCharges])
@@ -186,7 +187,7 @@ const CartPage = () => {
                     }
                 </div>
                 <div className="col-5 cart-right-section">
-                    <div className="title">Giỏ hàng</div>
+                    <div className="title">Shopping Cart</div>
                     <div className="cart-section">
                         {productList.length > 0 ? (
                             productList &&
@@ -205,11 +206,11 @@ const CartPage = () => {
                                 );
                             })
                         ) : (
-                            <p className="text-center">Chưa có sản phẩm nào trong giỏ hàng</p>
+                            <p className="text-center">There are no products in the cart.</p>
                         )}
                     </div>
                     <div className="shipping">
-                        <div className="title">Đơn vị vận chuyển</div>
+                        <div className="title">Shipping unit</div>
                         <div>
                             <label
                                 htmlFor="cod"
@@ -224,7 +225,7 @@ const CartPage = () => {
                                     />
                                 </div>
                                 <div className="shipping-item-name">
-                                    <p className="">J&T expreess (Giao hàng nhanh)</p>
+                                    <p className="">J&T expreess (Fast delivery)</p>
                                 </div>
                             </label>
                         </div>
@@ -242,18 +243,18 @@ const CartPage = () => {
                                     />
                                 </div>
                                 <div className="shipping-item-name">
-                                    <p className="">Viettel (Giao hàng chậm)</p>
+                                    <p className="">Viettel (Delayed delivery)</p>
                                 </div>
                             </label>
                         </div>
                     </div>
                     <div className="discount">
-                        <div className="title">Mã giảm giá</div>
+                        <div className="title">Discount code</div>
                         <form >
                             <div className="row">
                                 <div className="row-12 mb-3">
                                     {/* <InputField name='codediscount' control={control} placeholder={'Mã ưu đãi'} /> */}
-                                    <Select onChange={onChangeDiscount} control={control} placeholder="Chọn mã giảm giá" style={{ width: '100%' }}>
+                                    <Select onChange={onChangeDiscount} control={control} placeholder="Select coupon code" style={{ width: '100%' }}>
                                         {listCoupon && Array.isArray(listCoupon) ? (
                                             listCoupon.map((item, index) => (
                                                 <Select.Option key={index} value={item.code}>
@@ -270,11 +271,11 @@ const CartPage = () => {
                     </div>
                     <div className="row pricing-info">
                         <div className="pricing-info-item position-relative d-flex justify-content-between">
-                            <p>Tạm tính</p>
+                            <p>Provisional</p>
                             <p>{formatPrice(totalPrice)}đ</p>
                         </div>
                         <div className="pricing-info-item d-flex justify-content-between">
-                            <p>Phí giao hàng</p>
+                            <p>Shipping fee</p>
                             {deliveryCharges.isDiscounted ? (
                                 <div>
                                     <span style={{ textDecoration: 'line-through', color: '#FF0000' }}>{formatPrice(deliveryCharges.originalPrice)}đ</span>
@@ -287,12 +288,12 @@ const CartPage = () => {
                         </div>
                         {moneydiscount > 0 ? (
                             <div className="pricing-info-item d-flex justify-content-between">
-                                <p>Mã giảm giá</p>
+                                <p>Discount code</p>
                                 <p>{formatPrice(moneydiscount)}đ</p>
                             </div>
                         ): ('') }
                         <div className="pricing-info-item final-total-box position-relative d-flex justify-content-between">
-                            <p className="fw-bold">Tổng</p>
+                            <p className="fw-bold">Total</p>
                             <p className="fw-bold" style={{ fontSize: '20px' }}>
                                 {formatPrice(finalTotal)}đ
                             </p>

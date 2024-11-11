@@ -5,7 +5,7 @@ import { formatTime } from '@/helpers/format';
 import Link from 'next/link';
 import useCustomerStore from '@/store/customerStore';
 import orderService from '@/services/orderService';
-
+import { BellFilled } from '@ant-design/icons';
 const NotificationDropdown = () => {
     const customerId = useCustomerStore((state) => state.customerInfor?.customerId);
     const [notificationList, setNotificationList] = useState([]);
@@ -59,21 +59,21 @@ const NotificationDropdown = () => {
             }}
             itemLayout="horizontal"
             dataSource={notificationList}
-            locale={{ emptyText: 'Không có thông báo' }}
+            locale={{ emptyText: 'No notification' }}
             footer={
                 <div style={{ textAlign: 'center', padding: '10px 0' }}>
-                    <Link href="/account/notification">Xem tất cả thông báo</Link>
+                    <Link href="/account/notification">View all notifications</Link>
                 </div>
             }
             renderItem={(item) => (
                 <List.Item style={{ padding: '12px 8px' }} > {/* Thêm padding cho mỗi item */}
                     <List.Item.Meta
                         onClick={() => handleReadClick(item.id)}
-                        avatar={<Avatar icon={<BellFilled />} size="large" />} // Tăng kích thước avatar
+                        avatar={<Avatar icon={<BellFilled />} size="default" />} // Tăng kích thước avatar
                         title={
                             <span style={{ 
                                 color: '#1890ff',
-                                fontSize: '24px', // Tăng kích thước chữ
+                                fontSize: '16px', // Tăng kích thước chữ
                                 fontWeight: '500' 
                             }}>
                                 {item.content}

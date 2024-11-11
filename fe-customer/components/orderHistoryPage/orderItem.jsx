@@ -42,7 +42,7 @@ const OrderItem = (props) => {
             else
                 return (
                     <div onClick={showCreateFeedbackModal} className="feedback-btn border-radius">
-                        <span>Đánh giá sản phẩm</span>
+                        <span>Feedbacks Products</span>
                     </div>
                 );
     };

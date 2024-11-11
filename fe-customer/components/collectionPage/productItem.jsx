@@ -11,7 +11,8 @@ import {
     TwitterIcon,
     LinkedinIcon
 } from 'react-share';
-
+import { useQuery } from '@tanstack/react-query';
+import queries from '@/queries/index.js';
 import { formatRate } from '@/helpers/format';
 import Cookies from 'js-cookie';
 
@@ -24,8 +25,8 @@ const styles = {
     },
     productThumbnails: {
         position: 'relative',
-        width: '70%', // Thay đổi từ 100% sang 70%
-        paddingTop: '70%', // Giữ tỷ lệ khung hình vuông
+        width: '100%',
+        paddingTop: '100%', // Giữ tỷ lệ khung hình vuông
         overflow: 'hidden',
         margin: '0 auto', // Căn giữa thumbnail
     },
@@ -34,7 +35,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: '15px', // Thêm padding phía trên
+        position: 'relative', // Quan trọng để căn chỉnh nút Mua Ngay trong ảnh
     },
     image: {
         objectFit: 'cover',
@@ -80,6 +81,18 @@ const styles = {
         padding: '2px 8px',
         borderRadius: '4px',
         fontSize: '12px',
+    },
+    buyNowButton: {
+        position: 'absolute',
+        bottom: '10px',
+        right: '10px',
+        zIndex: 2,
+        padding: '10px 20px',
+        fontSize: '14px',
+        borderRadius: '25px',
+        backgroundColor: '#1890ff',
+        color: 'white',
+        border: 'none',
     }
 };
 
@@ -162,6 +175,22 @@ const ProductItem = (props) => {
         borderRadius: '0 4px 4px 0',
     };
 
+    const handleBuyNow = () => {
+        // const product = {
+        //     productVariantId: productVariantId,
+        //     name: productName,
+        //     colour: colourList[selectedColourIndex].colour_name,
+        //     size: sizeList[selectedSizeIndex].size_name,
+        //     image: productImageList[0],
+        //     price: price,
+        //     inventory: inventory,
+        //     quantity: quantity
+        // };
+        // addToCart(product);
+        // setQuantity(1);
+        // if (!isErrorInCart) swtoast.success({ text: 'Product added to cart successfully' });
+    };
+
     return (
         <div style={styles.productItem}>
             <Link
@@ -171,51 +200,58 @@ const ProductItem = (props) => {
                 }}
             >
                 <div style={styles.thumbnailContainer}>
-                <div style={styles.productThumbnails}>
-                    <Image
-                        style={{
-                            objectFit: 'cover',
-                            objectPosition: 'center',
-                        }}
-                        src={props.img}
-                        fill
-                        alt={props.name}
-                        priority
-                    />
-                    <div style={styles.rateBox}>
-                        <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.8)', padding: '4px 8px', borderRadius: '4px' }}>
-                            <span>{formatRate(props.rating)}</span>
-                            <StarFilled style={{ color: '#fadb14', marginLeft: '4px' }} />
-                            <span style={{ marginLeft: '4px', color: '#666' }}>
-                                ({props.feedback_quantity})
-                            </span>
-                        </div>
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            {isInWishlist ? (
-                                <HeartFilled
-                                    onClick={(event) => handleWishlistClick(event)}
-                                    style={{ ...shareIconStyle, color: '#ff4d4f' }}
-                                />
-                            ) : (
-                                <HeartOutlined
-                                    onClick={(event) => handleWishlistClick(event)}
+                    <div style={styles.productThumbnails}>
+                        <Image
+                            style={{
+                                objectFit: 'cover',
+                                objectPosition: 'center',
+                            }}
+                            src={props.img}
+                            fill
+                            alt={props.name}
+                            priority
+                        />
+                        <div style={styles.rateBox}>
+                            <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.8)', padding: '4px 8px', borderRadius: '4px' }}>
+                                <span>{formatRate(props.rating)}</span>
+                                <StarFilled style={{ color: '#fadb14', marginLeft: '4px' }} />
+                                <span style={{ marginLeft: '4px', color: '#666' }}>
+                                    ({props.feedback_quantity})
+                                </span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '10px' }}>
+                                {isInWishlist ? (
+                                    <HeartFilled
+                                        onClick={(event) => handleWishlistClick(event)}
+                                        style={{ ...shareIconStyle, color: '#ff4d4f' }}
+                                    />
+                                ) : (
+                                    <HeartOutlined
+                                        onClick={(event) => handleWishlistClick(event)}
+                                        style={shareIconStyle}
+                                    />
+                                )}
+                                <ShareAltOutlined
+                                    onClick={handleShareClick}
                                     style={shareIconStyle}
                                 />
-                            )}
-                            <ShareAltOutlined
-                                onClick={handleShareClick}
-                                style={shareIconStyle}
-                            />
+                            </div>
                         </div>
+                        <div style={styles.sizeBox}>
+                            {props.sizes.map((item, index) => (
+                                <span style={styles.sizeItem} key={index}>
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                        <Button
+                type="primary"
+                style={styles.buyNowButton}
+                onClick={handleBuyNow}
+            >
+                Buy Now
+            </Button>
                     </div>
-                    <div style={styles.sizeBox}>
-                        {props.sizes.map((item, index) => (
-                            <span style={styles.sizeItem} key={index}>
-                                {item}
-                            </span>
-                        ))}
-                    </div>
-                </div>
                 </div>
             </Link>
             <div style={styles.inforProduct}>
@@ -230,6 +266,10 @@ const ProductItem = (props) => {
                 <p style={styles.price}>{props.price}đ</p>
             </div>
 
+            {/* Nút "Mua Ngay" */}
+
+
+            {/* Modal chia sẻ */}
             <Modal
                 title="Share this product"
                 open={isShareModalVisible}
@@ -251,13 +291,11 @@ const ProductItem = (props) => {
                 <div style={copyLinkStyle}>
                     <input
                         style={linkInputStyle}
-                        type="text"
-                        value={`${window.location.origin}/product/${props.product_id}?colour=${props.colour_id}`}
                         readOnly
+                        value={`${window.location.origin}/product/${props.product_id}?colour=${props.colour_id}`}
                     />
                     <Button
                         style={copyButtonStyle}
-                        type="primary"
                         onClick={handleCopyLink}
                     >
                         Copy Link

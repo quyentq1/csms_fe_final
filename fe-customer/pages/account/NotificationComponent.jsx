@@ -17,7 +17,6 @@ const NotificationComponent = () => {
             try {
                 setLoading(true);
                 const result = await orderService.getNotification();
-                console.log("qqq",result.data)
                 setNotificationList(result.data);
             } catch (err) {
                 console.log(err);
@@ -47,10 +46,10 @@ const NotificationComponent = () => {
             }}
             itemLayout="horizontal"
             dataSource={notificationList}
-            locale={{ emptyText: 'Không có thông báo' }}
+            locale={{ emptyText: 'No notification' }}
             footer={
                 <div style={{ textAlign: 'center', padding: '10px 0' }}>
-                    <Link href="/account/notification">Xem tất cả thông báo</Link>
+                    <Link href="/account/notification">View all notifications</Link>
                 </div>
             }
             renderItem={(item) => (

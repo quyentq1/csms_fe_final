@@ -47,18 +47,6 @@ const OrderDetailPage = () => {
             } catch (error) {
                 console.log(error);
                 router.push('/404');
-                // setOrderId(fakeOrderDetail.order_id);
-                // setStateName(fakeOrderDetail.state_name);
-                // setStateId(fakeOrderDetail.state_id);
-                // setCreatedAt(fakeOrderDetail.created_at);
-                // setOrderItems(fakeOrderDetail.order_items);
-                // setTotalProductValue(fakeOrderDetail.total_product_value);
-                // setDeliveryCharges(fakeOrderDetail.);
-                // setTotalOrderValue(fakeOrderDetail.total_order_value);
-                // setCustomerName(fakeOrderDetail.customer_name);
-                // setEmail(fakeOrderDetail.email);
-                // setPhoneNumber(fakeOrderDetail.phone_number);
-                // setAddress(fakeOrderDetail.address);
             }
         };
         if (order_id) {
@@ -69,11 +57,11 @@ const OrderDetailPage = () => {
     const handleCancelOrder = useCallback(async () => {
         try {
             await orderService.cancelOrder(orderId);
-            swtoast.success({ text: 'Hủy đơn hàng thành công' });
+            swtoast.success({ text: 'Order Cancellation Successful' });
             router.push('/account/orders');
         } catch (err) {
             console.log(err);
-            swtoast.error({ text: 'Có lỗi khi hủy đơn hàng vui lòng thử lại!' });
+            swtoast.error({ text: 'Error canceling order please try again!' });
         }
     }, [orderId, router]);
 
@@ -81,7 +69,7 @@ const OrderDetailPage = () => {
         if (stateId == 1 || stateId == 2 || stateId == 3) {
             return (
                 <button className="cancel-order-btn" onClick={handleCancelOrder}>
-                    Hủy đơn hàng
+                   Cancel order
                 </button>
             );
         }
@@ -95,17 +83,17 @@ const OrderDetailPage = () => {
                 </div>
                 <div className="col-8">
                     <div className="order-detail">
-                        <h1 className="title">Thông tin đơn hàng của bạn</h1>
+                        <h1 className="title">Your order information</h1>
                         <div className="d-flex row align-items-center justify-content-between">
                             <div className="col-3">{renderCancelBtn}</div>
                             <div className="col-6 order-title border-radius d-flex align-items-center justify-content-center fw-bold" >
                                 <div>
-                                    ĐƠN HÀNG #{orderId}
+                                    Order #{orderId}
                                     <span className="order-state">{stateName}</span>
                                 </div>
                             </div>
                             <div className="order-date col-3 d-flex align-items-center justify-content-end">
-                                Ngày đặt: {formatTime(createdAt)}
+                                Date booked: {formatTime(createdAt)}
                             </div>
                         </div>
                         <div>
@@ -116,30 +104,30 @@ const OrderDetailPage = () => {
                                 totalOrderValue={totalOrderValue}
                             />
                         </div>
-                        <p className="receive-info-title">Thông tin nhận hàng</p>
+                        <p className="receive-info-title">Delivery information</p>
                         <div className="receive-info-box border-radius">
                             <p>
-                                Tên người nhận:
+                                Recipient name:
                                 <strong>{' ' + customerName}</strong>
                             </p>
                             <p>
-                                Địa chỉ email:
+                                Email address:
                                 <strong>{' ' + email}</strong>
                             </p>
                             <p>
-                                Số điện thoại:
+                                Phone number:
                                 <strong>{' ' + phoneNumber}</strong>
                             </p>
                             <p>
-                                Hình thức thanh toán:
+                                Payment method:
                                 <strong>{' ' + methodPayment}</strong>
                             </p>
                             <p>
-                                Địa chỉ giao hàng:
+                                Shipping address:
                                 <strong>{' ' + address}</strong>
                             </p>
                             <p>
-                                Đơn vị vận chuyển:
+                                Shipping unit:
                                 <strong>{' ' + shipping}</strong>
                             </p>
                         </div>

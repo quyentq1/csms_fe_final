@@ -10,11 +10,11 @@ const OrderDetailTable = (props) => {
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Giá niêm yết</th>
-                        <th>Biến thể</th>
-                        <th>Thành tiền</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>List price</th>
+                        <th>Variant</th>
+                        <th>Total amount</th>
                     </tr>
                 </thead>
                 <tbody className="text-right">
@@ -36,19 +36,19 @@ const OrderDetailTable = (props) => {
                 <tfoot>
                     <tr className="">
                         <td colSpan="4" className="">
-                            Tổng giá trị sản phẩm
+                            Total product value
                         </td>
                         <td colSpan="1">{formatPrice(totalProductValue)}</td>
                     </tr>
                     <tr className="">
                         <td colSpan="4" className="">
-                            Phí giao hàng
+                            Shipping fee
                         </td>
                         <td colSpan="1">{formatPrice(deliveryCharges)}</td>
                     </tr>
                     <tr className="total">
                         <td colSpan="4" className="">
-                            Tổng thanh toán
+                            Total payment
                         </td>
                         <td colSpan="1">{formatPrice(totalOrderValue)}</td>
                     </tr>

@@ -3,6 +3,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 import feedbackService from '@/services/feedbackService';
 import productService from '@/services/productService';
 import couponService from '@/services/couponService';
+import commentService from '@/services/commentService';
 
 export default createQueryKeys('products', {
     list: (category) => ({
@@ -23,6 +24,12 @@ export default createQueryKeys('products', {
         return {
             queryKey: [productId],
             queryFn: () => feedbackService.getFeedBackList(productId)
+        };
+    },
+    commentList: (productId) => {
+        return {
+            queryKey: [productId],
+            queryFn: () => commentService.getCommentList(productId)
         };
     },
     colourList: (productId) => {

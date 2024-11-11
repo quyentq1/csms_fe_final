@@ -68,6 +68,8 @@ const Header = () => {
                 allowEscapeKey: false,
                 showCancelButton: true,
                 showLoaderOnConfirm: true,
+                confirmButtonText: 'Accept', // Thêm text cho nút confirm
+                cancelButtonText: 'Cancel',   // Thêm text cho nút cancel
                 preConfirm: async () => {
                     try {
                         await signOut({ redirect: false }); // Use next-auth's signOut method
@@ -77,16 +79,16 @@ const Header = () => {
                         return { isError: true };
                     }
                 },
-                title: 'Đăng xuất',
+                title: 'Log out',
                 icon: 'warning',
-                text: 'Bạn muốn đăng xuất?',
+                text: 'Do you want to log out?',
             })
             .then((result) => {
                 if (result.isConfirmed && !result.value?.isError) {
                     setCustomerLogout();
-                    swtoast.success({ text: 'Đăng xuất thành công!' });
+                    swtoast.success({ text: 'Logout successful!' });
                 } else if (result.isConfirmed && result.value?.isError) {
-                    swtoast.error({ text: 'Đăng xuất thất bại!' });
+                    swtoast.error({ text: 'Logout failed!' });
                 }
             });
     };
@@ -156,7 +158,7 @@ const Header = () => {
                 <ul className="menu p-2">
                     <li className="menu-item fw-bold text-uppercase position-relative">
                         <Link href="/collections" className="d-flex align-items-center">
-                            Tất cả
+                        All Products
                         </Link>
                     </li>
                     {categoryList &&
@@ -204,7 +206,7 @@ const Header = () => {
                                 onClick={() => setIsLogInOpen(true)}
                                 className="inner-item menu-item fw-bold text-uppercase"
                             >
-                                <a href="#">Đăng Nhập</a>
+                                <a href="#">Log in</a>
                             </li>
                         </>
                     ) : (
@@ -224,20 +226,19 @@ const Header = () => {
                     <li
                         onClick={() => checkLogin()}
                         className="cart inner-item menu-item fw-bold text-uppercase icon-hover"
-                        style={{ fontSize: '24px' , }} // Tăng kích thước icon
+                        style={{ fontSize: '24px' , }}
                     >
                         <ShoppingCartOutlined />
                     </li>
                     <li
                         className="cart inner-item menu-item fw-bold text-uppercase"
-                        style={{ fontSize: '24px' }} // Tăng kích thước icon
+                        style={{ fontSize: '24px' }}
                     >
                         <Link href="/wishlist">
                         <HeartOutlined />
                         </Link>
                     </li>
                     <NotificationDropdown
-                        // Tăng kích thước icon
                     />
                    
                 </ul>

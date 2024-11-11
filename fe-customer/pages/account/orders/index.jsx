@@ -47,12 +47,12 @@ const OrderHistoryPage = () => {
                     <div className="orders-tab">
                         <div className="title">
                             {orderList.length == 0
-                                ? 'Đơn hàng của bạn'
-                                : `Đơn hàng của bạn: ${orderList.length} đơn hàng`}
+                                ? 'Your order'
+                                : `Your order: ${orderList.length} orders`}
                         </div>
                         <div className="orders-body">
                             {orderList && orderList.length === 0 ? (
-                                <p className="text-center">Bạn chưa có đơn hàng nào!</p>
+                                <p className="text-center">You have no orders yet!</p>
                             ) : (
                                 orderList.map((order, index) => {
                                     return (

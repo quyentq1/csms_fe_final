@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import CarouselFade from '@/components/productDetailPage/carousel.jsx';
 import ColourList from '@/components/productDetailPage/colourList.jsx';
 import FeedbackBox from '@/components/productDetailPage/feedbackBox.jsx';
+import CommentBox from '@/components/productDetailPage/commentBox.jsx';
 import OptionButton from '@/components/productDetailPage/optionButton.jsx';
 import PolicyItem from '@/components/productDetailPage/policyItem.jsx';
 import ProductQuantityInput from '@/components/productDetailPage/productQuantityInput.jsx';
@@ -100,7 +101,7 @@ const ProductDetailPage = () => {
         };
         addToCart(product);
         setQuantity(1);
-        if (!isErrorInCart) swtoast.success({ text: 'Thêm sản phẩm vào giỏ hàng thành công' });
+        if (!isErrorInCart) swtoast.success({ text: 'Product added to cart successfully' });
     };
 
     return (
@@ -118,12 +119,12 @@ const ProductDetailPage = () => {
                                 {feedbackQuantity && feedbackQuantity}
                             </h6>
                         </span>
-                        <span style={{ margin: '2px 0 0' }}>Đã bán (web): {sold && sold}</span>
+                        <span style={{ margin: '2px 0 0' }}>Sold (web): {sold && sold}</span>
                     </div>
                     <div className="price-box">{price && <span>{formatPrice(price)}đ</span>}</div>
                     <div className="colour-option-box">
                         <span>
-                            Màu:
+                        Color:
                             <strong>
                                 &nbsp;
                                 {colourList && selectedColourIndex != null
@@ -142,7 +143,7 @@ const ProductDetailPage = () => {
                     </div>
                     <div className="size-option-box">
                         <span>
-                            Kích cỡ:&nbsp;
+                            Size:&nbsp;
                             <strong>
                                 {sizeList && selectedSizeIndex != null
                                     ? sizeList[selectedSizeIndex]?.size_name
@@ -169,7 +170,7 @@ const ProductDetailPage = () => {
                             className="add-product-to-cart-button border-radius col-7 d-flex justify-content-around align-items-center"
                             onClick={handleAddToCart}
                         >
-                            Thêm vào giỏ hàng
+                            Add to cart
                         </div>
                     </div>
                     <div className="policy-box d-flex flex-wrap justify-content-around position-relative">
@@ -183,7 +184,7 @@ const ProductDetailPage = () => {
 
             <div className="row product-detail">
                 <div className="col-12">
-                    <h5 className="title text-center">Chi tiết sản phẩm</h5>
+                    <h5 className="title text-center">Producst Details</h5>
                     {productDescription && (
                         <div dangerouslySetInnerHTML={{ __html: productDescription }} />
                     )}
@@ -192,7 +193,7 @@ const ProductDetailPage = () => {
             <div className="review-box position-relative d-flex align-items-center">
                 <div className="">
                     <h5 className="feedback_quantify-detail d-inline-block">
-                        {feedbackQuantity > 0 ? `${feedbackQuantity} Đánh giá` : 'Sản phẩm hiện chưa có đánh giá'}
+                        {feedbackQuantity > 0 ? `${feedbackQuantity} Đánh giá` : 'This product has no reviews yet.'}
                     </h5>
                     {feedbackQuantity > 0 ?
                         <h5 className="rating-detail d-inline-block">
@@ -206,6 +207,7 @@ const ProductDetailPage = () => {
                 </div>
             </div>
             <FeedbackBox productId={product_id} />
+            <CommentBox productId={product_id} />
         </div>
     );
 };

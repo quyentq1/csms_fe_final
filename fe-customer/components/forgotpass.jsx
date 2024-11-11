@@ -12,10 +12,10 @@ const ForgotPass = (props) => {
     // Schema dùng để validate email
     const schema = yup.object({
         email: yup
-            .string()
-            .trim()
-            .required('Vui lòng nhập Email của bạn')
-            .email('Email không hợp lệ')
+        .string()
+        .trim()
+        .required('Please enter your Email')
+        .email('Invalid Email')
     });
 
     // Sử dụng react-hook-form với yupResolver để validate form
@@ -37,7 +37,7 @@ const ForgotPass = (props) => {
             const respond = await customerService.ForgotPass(data);
             if (respond.status === 200) {
                 swtoast.success({
-                    text: 'Vui lòng kiểm tra email của bạn!',
+                    text: 'Please check your email!',
                 });
                 setIsOtpModalVisible(true); // Hiển thị modal OTP khi thành công
             }
@@ -56,14 +56,14 @@ const ForgotPass = (props) => {
             const response = await customerService.verifyOtp(data);
             if (response.status === 200) {
                 swtoast.success({
-                    text: 'Xác thực OTP thành công!',
+                    text: 'OTP authentication successful!',
                 });
                 setIsOtpModalVisible(false); // Đóng modal OTP
                 setIsPasswordModalVisible(true); // Hiển thị modal nhập mật khẩu
             }
         } catch (error) {
             swtoast.error({
-                text: 'Xác thực OTP thất bại!',
+                text: 'OTP authentication failed!',
             });
         }
     };
@@ -72,7 +72,7 @@ const ForgotPass = (props) => {
     const handleChangePassword = async () => {
         const email = getValues('email'); // Lấy giá trị email từ form
         if (newPassword !== confirmPassword) {
-            swtoast.error({ text: 'Mật khẩu không khớp!' });
+            swtoast.error({ text: 'Passwords do not match!' });
             return;
         }
         try {
@@ -85,69 +85,95 @@ const ForgotPass = (props) => {
 
             if (response.status === 200) {
                 console.log(' dmm')
-                swtoast.success({ text: 'Đổi mật khẩu thành công!' });
+                swtoast.success({ text: 'Password changed successfully!' });
                 setIsPasswordModalVisible(false); // Đóng modal sau khi thành công
                 props.toClose();
             }
         } catch (error) {
             console.error('Error occurred: ', error);
-            swtoast.error({ text: 'Đổi mật khẩu thất bại!' });
+            swtoast.error({ text: 'Password change failed!' });
         }
     };
 
     return (
-        <div className="user ForgotPass w-100 position-absolute d-flex" onClick={props.toClose}>
-            <div className="user-box position-relative register-box border-radius" onClick={(e) => e.stopPropagation()}>
-                <div className="header-form position-absolute" onClick={props.toClose}>
-                    <FaTimes />
-                </div>
-                <form onSubmit={handleSubmit(handleForgotPass)} className="form-user form-ForgotPass">
-                    <h3 className="heading text-center">Quên Mật Khẩu</h3>
-                    <div className="mb-3">
-                        <InputField name='email' control={control} placeholder={'Email'} />
-                    </div>
-                    <div className={'btn-container' + (isSubmitting ? ' btn-loading' : '')}>
-                        <Button htmlType='submit' loading={isSubmitting}>
-                            {!isSubmitting && 'Quên Mật Khẩu'}
-                        </Button>
-                    </div>
-                </form>
+        <div className="login-container" onClick={props.toClose}>
+        <div className="login-box" onClick={(e) => e.stopPropagation()}>
+            <div className="close-button" onClick={props.toClose}>
+                <FaTimes />
             </div>
-
+            
+            <form onSubmit={handleSubmit(handleForgotPass)} className="login-form">
+                <h3 className="login-title">Forgot Password</h3>
+                
+                <div className="form-group">
+                    <InputField 
+                        name='email' 
+                        control={control} 
+                        placeholder={'Email'} 
+                    />
+                </div>
+    
+                <div className="submit-button">
+                    <Button 
+                        htmlType='submit' 
+                        loading={isSubmitting}
+                        block
+                    >
+                        {!isSubmitting && 'Submit Request'}
+                    </Button>
+                </div>
+            </form>
+            <div className="form-footer">
+  {!isSubmitting && (
+    <>
+      <a className="register-link" onClick={props.toRegister}>
+        Register new account
+      </a>
+    </>
+  )}
+</div>
+    
             {/* Modal nhập mã OTP */}
             <Modal
-                title="Nhập mã OTP"
+                title="Enter OTP code"
                 visible={isOtpModalVisible}
                 onCancel={() => setIsOtpModalVisible(false)}
                 onOk={handleVerifyOtp}
             >
-                <Input
-                    placeholder="Nhập mã OTP"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                />
+                <div className="form-group">
+                    <Input
+                        placeholder="Enter OTP code"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                    />
+                </div>
             </Modal>
-
+    
             {/* Modal nhập mật khẩu mới */}
             <Modal
-                title="Nhập mật khẩu mới"
+                title="Enter new password"
                 visible={isPasswordModalVisible}
                 onCancel={() => setIsPasswordModalVisible(false)}
                 onOk={handleChangePassword}
             >
-                <Input.Password
-                    placeholder="Nhập mật khẩu mới"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <Input.Password
-                    placeholder="Xác nhận mật khẩu"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                <div className="form-group">
+                    <Input.Password
+                        placeholder="Enter new password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <Input.Password
+                        placeholder="Confirm New Password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </div>
             </Modal>
         </div>
-    );
+    </div>
+    )
 };
 
 export default ForgotPass;

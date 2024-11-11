@@ -24,7 +24,7 @@ const CreateFeedbackModal = (props) => {
                 content
             };
             await feedbackService.create(feedback);
-            swtoast.success({ text: 'Tạo đánh giá thành công' });
+            swtoast.success({ text: 'Create a successful review' });
             setProductVariantId(null);
             setIsOpen(false);
             refreshOrderList();
@@ -32,7 +32,7 @@ const CreateFeedbackModal = (props) => {
             console.log(err);
             setProductVariantId(null);
             setIsOpen(false);
-            swtoast.error({ text: 'Có lỗi khi tạo đánh giá vui lòng thử lại!' });
+            swtoast.error({ text: 'There was an error creating the review please try again!' });
         }
     };
 
@@ -45,23 +45,23 @@ const CreateFeedbackModal = (props) => {
             centered={true}
         >
             <div className="modal-head">
-                <h5 className="text-center">Đánh giá của bạn</h5>
+                <h5 className="text-center">Your review</h5>
             </div>
             <div className="modal-body">
                 <div className="d-flex align-items-center">
-                    <label>Đánh giá: </label>
+                    <label>Rating: </label>
                     <div className="rating-box">
                         <Rate value={rate} onChange={(value) => setRate(value)} />
                     </div>
                 </div>
                 <div className="">
-                    <label htmlFor="content">Bình luận: </label>
+                    <label htmlFor="content">Comments: </label>
                     <div className="content-box">
                         <TextArea
                             value={content}
                             id="content"
                             onChange={(e) => setContent(e.target.value)}
-                            placeholder="Bình luận"
+                            placeholder="Comments"
                             autoSize={{
                                 minRows: 3,
                                 maxRows: 5
@@ -75,7 +75,7 @@ const CreateFeedbackModal = (props) => {
                     className="rate-btn border-radius bg-dark text-light text-center"
                     onClick={handleCreateFeedback}
                 >
-                    Đánh giá
+                    Feedbacks
                 </div>
             </div>
         </Modal>

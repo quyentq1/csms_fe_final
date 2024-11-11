@@ -10,7 +10,7 @@ const HomePage = () => {
         if (role_id === 1) {
             Router.push('/statistical/manage');  // Admin
         } else if (role_id === 3) {
-            // Router.push('/staff/dashboard');  // Staff
+            Router.push('/chat/manage');  // Staff
         } else {
             Router.push('/login');  // Nếu không có role_id, điều hướng về login
         }

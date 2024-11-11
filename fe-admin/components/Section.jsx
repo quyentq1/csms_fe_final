@@ -38,7 +38,7 @@ const Section = () => {
     return (
         <div className='section w-100'>
             <div className="logo-box text-center">
-                <img className='logo' src="http://103.221.221.195:3000/img/logo.png" alt="Logo" />
+                <img className='logo' src="https://www.admin.csms.io.vn/img/favicon.jpg" alt="Logo" />
             </div>
             <ul className="menu position-relative">
                 {filteredMenu && filteredMenu.map((item, index) => {
