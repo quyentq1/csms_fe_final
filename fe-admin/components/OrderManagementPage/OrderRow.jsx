@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 import { swalert, swtoast } from "@/mixins/swal.mixin";
+import { EyeOutlined, CloseCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
 
 const OrderRow = (props) => {
     const { order_id, state_id, state_name, created_at, total_order_value, refreshOrderTable } = props;
@@ -32,7 +33,7 @@ const OrderRow = (props) => {
             return (
                 <>
                     <br />
-                    <a className="text-danger" href="#" onClick={handleCancelOrder}>Cancel order</a>
+                    <a className="text-danger" href="#" onClick={handleCancelOrder}><CloseCircleOutlined /></a>
                 </>
             )
         }
@@ -42,7 +43,7 @@ const OrderRow = (props) => {
         if (state_id == 1) {
             return (
                 <>
-                    <a href="#" onClick={handleChangeStatus}>Order Confirmation</a>
+                    <a href="#" onClick={handleChangeStatus}><CheckCircleOutlined /></a>
                     <br />
                 </>
             )
@@ -50,7 +51,7 @@ const OrderRow = (props) => {
         if (state_id == 2) {
             return (
                 <>
-                    <a href="#" onClick={handleChangeStatus}>Confirmation of delivery to the carrier</a>
+                    <a href="#" onClick={handleChangeStatus}><CheckCircleOutlined /></a>
                     <br />
                 </>
             )
@@ -58,7 +59,7 @@ const OrderRow = (props) => {
         if (state_id == 3) {
             return (
                 <>
-                    <a href="#" onClick={handleChangeStatus}>Confirm successful delivery</a>
+                    <a href="#" onClick={handleChangeStatus}><CheckCircleOutlined /></a>
                     <br />
                 </>
             )
@@ -174,39 +175,33 @@ const OrderRow = (props) => {
     }
 
     return (
-        <div className="table-responsive">
-            <table className="table align-middle order-manage-table w-100">
-                <tbody className="w-100 text-center">
-                    <tr className="w-100">
-                        <td className="fw-bold col-order-id">
-                            <p className="d-flex align-items-center justify-content-center">
-                                #{order_id}
-                            </p>
-                        </td>
-                        <td className="text-danger fw-bold col-state">
-                            <p className="d-flex align-items-center justify-content-center">
-                                {state_name}
-                            </p>
-                        </td>
-                        <td className="col-create-at">
-                            <p className="d-flex align-items-center justify-content-center">
-                                {convertTime(created_at)}
-                            </p>
-                        </td>
-                        <td className="text-danger fw-bold col-total-value">
-                            <p>
-                                {addPointToPrice(total_order_value)}
-                            </p>
-                        </td>
-                        <td className="col-action manipulation">
-                            {renderChangeStatusBtn()}
-                            <Link href={`/order/detail/${order_id}`}>View Details Orders</Link>
-                            {renderCancelOrderBtn()}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <tr className="w-100">
+            <td className="fw-bold col-order-id">
+                <p className="d-flex align-items-center justify-content-center">
+                    #{order_id}
+                </p>
+            </td>
+            <td className="text-danger fw-bold col-state">
+                <p className="d-flex align-items-center ">
+                    {state_name}
+                </p>
+            </td>
+            <td className="col-create-at">
+                <p className="d-flex align-items-center justify-content-center">
+                    {convertTime(created_at)}
+                </p>
+            </td>
+            <td className="text-danger fw-bold col-total-value">
+                <p>
+                    {addPointToPrice(total_order_value)}
+                </p>
+            </td>
+            <td className="col-action manipulation">
+                {renderChangeStatusBtn()}
+                <Link href={`/order/detail/${order_id}`}><EyeOutlined /></Link>
+                {renderCancelOrderBtn()}
+            </td>
+        </tr>
     )
 }
 

@@ -1,1 +1,1 @@
-export const homeAPI = 'https://www.backend.csms.io.vn/api'
+export const homeAPI = process.env.NEXT_PUBLIC_BACKEND_API

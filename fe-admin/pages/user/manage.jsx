@@ -89,7 +89,7 @@ const UserManagementPage = () => {
     <div className="product-manager">
       <Header title="Customer Management" />
       <div className="wrapper manager-box">
-        <Heading title="All Customer" />
+        <Heading title="Customer Management" />
         <SortBar onSort={handleSortFromSortBar} />
         
         <div className="search-box" style={{ paddingBottom:'10px', maxWidth:'400px'}}>

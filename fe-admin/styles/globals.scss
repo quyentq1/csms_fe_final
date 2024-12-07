@@ -13,3 +13,12 @@
 @import "./orderRow";
 @import "./category";
 @import "./loading";
+
+:where(.css-dev-only-do-not-override-1x0dypw).ant-btn-color-dangerous.ant-btn-background-ghost{
+    color: unset;
+    background: unset;
+    border-color: unset;
+}
+:where(.css-dev-only-do-not-override-1x0dypw).ant-btn-color-dangerous.ant-btn-variant-outlined, :where(.css-dev-only-do-not-override-1x0dypw).ant-btn-color-dangerous.ant-btn-variant-dashed{
+    border-color: unset;
+}

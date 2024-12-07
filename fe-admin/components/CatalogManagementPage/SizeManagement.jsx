@@ -74,7 +74,7 @@ const SizeManage = () => {
                 <table className='table table-hover table-bordered'>
                     <thead>
                         <tr>
-                            <th className='text-center'>STT</th>
+                            <th className='text-center'>NO.</th>
                             <th>
                             Size name
                             </th>

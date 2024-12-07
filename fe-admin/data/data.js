@@ -42,6 +42,13 @@ export const menu = [
         ],
     },
     {
+        title: 'Setting 2FA',
+        href: '/setting/2fa-setup',
+        list: [
+
+        ],
+    },
+    {
         title: 'Message Management',
         href: '/chat/manage',
         list: [

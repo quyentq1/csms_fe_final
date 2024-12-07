@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { StarFilled, HeartOutlined, HeartFilled, ShareAltOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -15,7 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import queries from '@/queries/index.js';
 import { formatRate } from '@/helpers/format';
 import Cookies from 'js-cookie';
-
+import ProductDetailModal from '@/pages/product/product_modal';
 const styles = {
     productItem: {
         width: '100%',
@@ -68,6 +69,16 @@ const styles = {
         alignItems: 'center',
         zIndex: 1,
     },
+    rateBoxMobile: {
+        position: 'absolute',
+        top: '5px',
+        left: '5px',
+        right: '5px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        zIndex: 1,
+    },
     sizeBox: {
         position: 'absolute',
         bottom: '10px',
@@ -75,6 +86,13 @@ const styles = {
         right: '10px',
         display: 'flex',
         gap: '5px',
+    },
+    sizeBoxMobile: {
+        position: 'absolute',
+        bottom: '5px',
+        left: '5px',
+        display: 'flex',
+        gap: '3px',
     },
     sizeItem: {
         background: 'rgba(255, 255, 255, 0.8)',
@@ -93,12 +111,43 @@ const styles = {
         backgroundColor: '#1890ff',
         color: 'white',
         border: 'none',
-    }
+    },
+    buyNowButtonMobile: {
+       display: 'none'
+    },
+    sizeRating: {
+        display: 'flex', 
+        alignItems: 'center', 
+        background: 'rgba(255, 255, 255, 0.8)', 
+        padding: '4px 8px', 
+        borderRadius: '4px' 
+    },  
+    sizeRatingMobile: {
+        display: 'flex', 
+        alignItems: 'center', 
+        background: 'rgba(255, 255, 255, 0.8)', 
+        padding: '2px 5px', 
+        borderRadius: '4px' 
+    }, 
 };
 
 const ProductItem = (props) => {
+    
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     const [isInWishlist, setIsInWishlist] = useState(false);
     const [isShareModalVisible, setIsShareModalVisible] = useState(false);
+    const [isProductDetailModalVisible, setIsProductDetailModalVisible] = useState(false);
+    const [modalData, setModalData] = useState({ product_id: null, colour_id: null });
     const { updateWishlist } = props;
 
     useEffect(() => {
@@ -140,7 +189,14 @@ const ProductItem = (props) => {
     const shareIconStyle = {
         cursor: 'pointer',
         fontSize: '20px',
-        marginLeft: '10px',
+        color: '#fff',
+        background: 'rgba(0, 0, 0, 0.5)',
+        padding: '5px',
+        borderRadius: '50%',
+    };
+    const shareIconMobileStyle = {
+        cursor: 'pointer',
+        fontSize: '15px',
         color: '#fff',
         background: 'rgba(0, 0, 0, 0.5)',
         padding: '5px',
@@ -175,22 +231,19 @@ const ProductItem = (props) => {
         borderRadius: '0 4px 4px 0',
     };
 
-    const handleBuyNow = () => {
-        // const product = {
-        //     productVariantId: productVariantId,
-        //     name: productName,
-        //     colour: colourList[selectedColourIndex].colour_name,
-        //     size: sizeList[selectedSizeIndex].size_name,
-        //     image: productImageList[0],
-        //     price: price,
-        //     inventory: inventory,
-        //     quantity: quantity
-        // };
-        // addToCart(product);
-        // setQuantity(1);
-        // if (!isErrorInCart) swtoast.success({ text: 'Product added to cart successfully' });
+    const handleBuyNow = (event) => {
+        event.preventDefault(); // Ngăn hành vi mặc định của nút
+        // Gửi product_id và colour_id vào Modal
+        setModalData({
+            product_id: props.product_id,
+            colour_id: props.colour_id,
+        });
+        setIsProductDetailModalVisible(true); // Mở modal
     };
-
+    const closeProductDetailModal = () => {
+        setIsProductDetailModalVisible(false); // Đóng modal
+        setModalData({ product_id: null, colour_id: null }); // Reset dữ liệu modal
+};
     return (
         <div style={styles.productItem}>
             <Link
@@ -204,53 +257,54 @@ const ProductItem = (props) => {
                         <Image
                             style={{
                                 objectFit: 'cover',
-                                objectPosition: 'center',
+                                objectPosition: 'top',
+                                borderRadius: '7px'
                             }}
                             src={props.img}
                             fill
                             alt={props.name}
-                            priority
+                            priority 
                         />
-                        <div style={styles.rateBox}>
-                            <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.8)', padding: '4px 8px', borderRadius: '4px' }}>
+                        <div style={isMobile ? styles.rateBoxMobile : styles.rateBox}>
+                            <div style={isMobile ? styles.sizeRatingMobile : styles.sizeRating}>
                                 <span>{formatRate(props.rating)}</span>
                                 <StarFilled style={{ color: '#fadb14', marginLeft: '4px' }} />
                                 <span style={{ marginLeft: '4px', color: '#666' }}>
                                     ({props.feedback_quantity})
                                 </span>
                             </div>
-                            <div style={{ display: 'flex', gap: '10px' }}>
+                            <div style={{ display: 'flex', gap: '5px' }}>
                                 {isInWishlist ? (
                                     <HeartFilled
                                         onClick={(event) => handleWishlistClick(event)}
-                                        style={{ ...shareIconStyle, color: '#ff4d4f' }}
+                                        style={{...(isMobile ? shareIconMobileStyle : shareIconStyle), color: '#ff4d4f' }}
                                     />
                                 ) : (
                                     <HeartOutlined
                                         onClick={(event) => handleWishlistClick(event)}
-                                        style={shareIconStyle}
+                                        style={isMobile ? shareIconMobileStyle : shareIconStyle}
                                     />
                                 )}
                                 <ShareAltOutlined
                                     onClick={handleShareClick}
-                                    style={shareIconStyle}
+                                    style={isMobile ? shareIconMobileStyle :shareIconStyle}
                                 />
                             </div>
                         </div>
-                        <div style={styles.sizeBox}>
+                        <div style={isMobile ? styles.sizeBoxMobile : styles.sizeBox}>
                             {props.sizes.map((item, index) => (
                                 <span style={styles.sizeItem} key={index}>
                                     {item}
                                 </span>
                             ))}
                         </div>
-                        <Button
-                type="primary"
-                style={styles.buyNowButton}
-                onClick={handleBuyNow}
-            >
-                Buy Now
-            </Button>
+                        <Button                        
+                            type="primary"
+                            style={isMobile ? styles.buyNowButtonMobile : styles.buyNowButton}
+                            onClick={handleBuyNow} 
+                        >
+                            Buy Now
+                        </Button>
                     </div>
                 </div>
             </Link>
@@ -302,6 +356,20 @@ const ProductItem = (props) => {
                     </Button>
                 </div>
             </Modal>
+                        <Modal
+                            open={isProductDetailModalVisible}
+                            onCancel={closeProductDetailModal}
+                            footer={null}
+                            width={1200}
+                            height={900} // Điều chỉnh độ rộng của Modal
+                            bodyStyle={{ padding: '20px' }}
+                            >
+                            <ProductDetailModal
+                                product_id={modalData.product_id}
+                                colour={modalData.colour_id}
+                                onClose={closeProductDetailModal}
+                            />
+                        </Modal>
         </div>
     );
 };

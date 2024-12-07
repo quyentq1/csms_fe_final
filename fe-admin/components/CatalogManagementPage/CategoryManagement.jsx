@@ -113,7 +113,7 @@ const Category = () => {
                 <table className="table table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th className="text-center">STT</th>
+                            <th className="text-center">NO.</th>
                             <th>Category Name</th>
                             <th>Level</th>
                             <th>Parent Category</th>

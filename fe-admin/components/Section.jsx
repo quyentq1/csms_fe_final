@@ -34,13 +34,21 @@ const Section = () => {
             [index]: !showMenuItem[index]
         });
     };
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const showhideMenuMobile = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
     return (
         <div className='section w-100'>
             <div className="logo-box text-center">
-                <img className='logo' src="https://www.admin.csms.io.vn/img/favicon.jpg" alt="Logo" />
+                <img className='logo' src="../logo.png" alt="Logo" />
+                <button className="menu-btn" id="menu-icon" onClick={() => showhideMenuMobile()}>
+                    <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
-            <ul className="menu position-relative">
+            <ul className="menu position-relative menu-pc" >
                 {filteredMenu && filteredMenu.map((item, index) => {
                     return (
                         <li onClick={() => router.push(item.href)} className='menu-item text-uppercase fw-bold' key={index}>
@@ -50,6 +58,28 @@ const Section = () => {
                                     {item.list && item.list.map((listItem, i) => {
                                         return (
                                             <li onClick={() => router.push(listItem.href)} key={i} className='w-100'>
+                                                <a href='#' className="w-100">
+                                                    {listItem.title}
+                                                </a>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </li>
+                    );
+                })}
+            </ul>
+            <ul className="menu position-relative menu-mobile" style={{ display: isMenuOpen ? "block" : "none" }}>
+                {filteredMenu && filteredMenu.map((item, index) => {
+                    return (
+                        <li onClick={() => router.push(item.href)} className='menu-item text-uppercase fw-bold' key={index}>
+                            <a onClick={() => handleClick(index)} className='w-100' href="#">{item.title}</a>
+                            {showMenuItem[index] && (
+                                <ul className='sub-menu position-absolute w-100'>
+                                    {item.list && item.list.map((listItem, i) => {
+                                        return (
+                                            <li onClick={() => router.push(listItem.href) } key={i} className='w-100'>
                                                 <a href='#' className="w-100">
                                                     {listItem.title}
                                                 </a>

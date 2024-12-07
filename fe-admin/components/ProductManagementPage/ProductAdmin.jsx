@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
 import { swalert, swtoast } from "@/mixins/swal.mixin";
-import { FaTrash, FaPencilAlt } from "react-icons/fa"
+import { FaTrash, FaPencilAlt, FaEdit } from "react-icons/fa"
 import { Switch } from 'antd';
 import Swal from "sweetalert2";
 import useAdminStore from '@/store/adminStore';
@@ -129,9 +129,9 @@ const ProductAdmin = (props) => {
     }
 
     return (
-        <div className="table-responsive">
-            <table className="table align-middle product-admin w-100">
-                <tbody className='w-100 text-center'>
+        // <div className="table-responsive">
+        //     <table className="table align-middle product-admin w-100">
+        //         <tbody className='w-100 text-center'>
                     <tr className="w-100">
                         <td className='col-infor-product'>
                             <p className="name">
@@ -171,7 +171,7 @@ const ProductAdmin = (props) => {
                             <Link href={`/product/update/${props.product_id}`}
                                   style={{pointerEvents: isDisabled() ? 'none' : 'auto', 
                                          opacity: isDisabled() ? 0.5 : 1}}>
-                                Edit
+                                <FaEdit />
                             </Link>
                             <br />
                             <FaTrash 
@@ -185,9 +185,9 @@ const ProductAdmin = (props) => {
                             />
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
+        //         </tbody>
+        //     </table>
+        // </div>
     )
 }
 

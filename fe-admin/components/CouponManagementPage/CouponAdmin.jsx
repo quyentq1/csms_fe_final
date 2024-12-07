@@ -5,6 +5,8 @@ import { swalert, swtoast } from "@/mixins/swal.mixin";
 import { FaTrash, FaPencilAlt } from "react-icons/fa"
 import { Switch } from 'antd';
 import Swal from "sweetalert2";
+import { EditOutlined } from '@ant-design/icons';
+
 
 const CouponAdmin = (props) => {
 
@@ -108,7 +110,7 @@ const CouponAdmin = (props) => {
                         </td>
                         <td className="col-action manipulation">
                             <Link href={`/coupon/update/${props.id}`}>
-                                Edit
+                                <EditOutlined />
                             </Link>
                             <br />
                             <FaTrash style={{ cursor: "pointer" }} title='Delete' className="text-danger" onClick={() => handleDelete()} />
