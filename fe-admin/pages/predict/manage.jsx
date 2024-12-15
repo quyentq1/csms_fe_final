@@ -55,7 +55,7 @@ const ManagePage = () => {
 
 
         const response = await axios.post(
-          'http://localhost:8080/api/feedback/getFeedback',
+          'https://www.backend.csms.io.vn/api/feedback/getFeedback',
           requestData
         );
         console.log(response.data.data);
@@ -190,7 +190,7 @@ const ManagePage = () => {
         }));
 
       const response = await axios.post(
-        'http://localhost:8080/api/feedback/predict',
+        'https://www.backend.csms.io.vn/api/feedback/predict',
         selectedFeedbacks
       );
 
